@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddEstadoToCursosTable extends Migration
+class AddFechaderivacionToEducadoras extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddEstadoToCursosTable extends Migration
      */
     public function up()
     {
-        Schema::table('cursos', function (Blueprint $table) {
-            $table->boolean('condicion')->after('created_at');
+        Schema::table('educadoras', function (Blueprint $table) {
+            $table->string('fechaderivacion')->after('antecedentes');
         });
     }
 
@@ -25,7 +25,7 @@ class AddEstadoToCursosTable extends Migration
      */
     public function down()
     {
-        Schema::table('cursos', function (Blueprint $table) {
+        Schema::table('educadoras', function (Blueprint $table) {
             //
         });
     }

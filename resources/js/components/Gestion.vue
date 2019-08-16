@@ -41,6 +41,7 @@
                                     <th width="35%">Alumna</th>
                                     <th width="15%">Derivado Por</th>
                                     <th width="39%">Motivo Derivación</th>
+                                    <th width="15%">Fecha Derivación</th>
                                     <th width="3%">Ant.</th>
                                     <!-- <th>Detalle</th>
                                     <th>Estado</th> -->
@@ -70,6 +71,7 @@
                                     <td v-text="orientadora.apellidos +' '+ orientadora.nombres"></td>
                                     <td v-text="orientadora.derivadopor"></td>
                                     <td v-text="orientadora.motivo"></td>
+                                    <td v-text="orientadora.fechaderivacion"></td>
                                     <td>
                                         <button   type="button" @click="abrirModalDerivacion('alumna','actualizar',orientadora)" class="btn btn-Info btn-sm text-center"  title="Ver Detalle">
                                             <i align="center" class="fas fa-eye"></i>

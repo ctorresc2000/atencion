@@ -86,6 +86,7 @@ Route::group(['middleware'=>['auth']], function() {
         Route::put('/orientadora/reabrir', 'OrientadoraController@reabrir');
         Route::get('/orientadora/detalles', 'OrientadoraController@mostrarDetalle');
         
+        
         Route::post('/det_orientadora/registrar', 'Det_orientadoraController@store');
         Route::get('/det_orientadora', 'Det_orientadoraController@index');
         
@@ -160,12 +161,16 @@ Route::group(['middleware'=>['auth']], function() {
         Route::put('/user/activar', 'UserController@activar');
         Route::put('/user/desactivar', 'UserController@desactivar');
         Route::put('/user/CambiarPassword', 'UserController@asignarPassword');
+        Route::get('/user/listar', 'UserController@listar');
 
         Route::get('/curso', 'CursoController@index');
         Route::post('/curso/registrar', 'CursoController@store');
         Route::put('/curso/actualizar', 'CursoController@update');
         Route::put('/curso/desactivar', 'CursoController@desactivar');
-        Route::put('/curso/activar', 'CursoController@activar');
+        Route::put('/curso/activar', 'CursoController@activar'); 
+        Route::get('/curso/cursoactivo', 'CursoController@cursoactivo');
+
+        Route::post('/contactar', 'EmailController@contact')->name('contact');
     });
 
     Route::group(['middleware'=>['Educadora']], function() {

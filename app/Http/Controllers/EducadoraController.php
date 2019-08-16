@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Educadora;
+use Carbon\Carbon;
 
 class EducadoraController extends Controller
 {
@@ -75,11 +76,14 @@ class EducadoraController extends Controller
     {
         if(!$request->ajax()) return redirect('/');
 
+        $fecha= Carbon::now();
+        $fecha=$fecha->format('d-m-Y');
+
         $educadoras = new Educadora();
         $educadoras->idalumna=$request->idalumna;
         $educadoras->derivadopor=$request->derivadopor;
         $educadoras->Motivo=$request->motivo;
-        
+        $educadoras->fechaderivacion=$fecha; /* $request->fechaDerivacionOrientadora; */
         $educadoras->antecedentes=$request->antecedentes;
         $educadoras->condicion='1';
         $educadoras->save();

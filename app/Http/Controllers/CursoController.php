@@ -11,7 +11,7 @@ class CursoController extends Controller
     {
         if(!$request->ajax()) return redirect('/');
 
-        $cursos = Curso::OrderBy('curso','asc')->paginate(100);
+        $cursos = Curso::OrderBy('curso','asc')->paginate(50);
 
         return [
             'pagination' => [
@@ -61,5 +61,24 @@ class CursoController extends Controller
         $curso = Curso::findOrFail($request->id);
         $curso->condicion='1';
         $curso->save();
+    }
+
+    public function cursoactivo(request $request)
+    {
+        if(!$request->ajax()) return redirect('/');
+
+        $cursos = Curso::OrderBy('curso','asc')->where('condicion','1')->paginate(50);
+
+        return [
+            'pagination' => [
+                'total' => $cursos->total(),
+                'current_page' => $cursos->currentPage(),
+                'per_page' => $cursos->perPage(),
+                'last_page' => $cursos->lastpage(),
+                'from' => $cursos->firstItem(),
+                'to' => $cursos->lastItem(),
+            ],
+            'cursos' =>$cursos
+        ];
     }
 }

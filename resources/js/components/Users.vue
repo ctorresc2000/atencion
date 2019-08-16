@@ -14,7 +14,7 @@
                     </button>
                 </div>
                 <div class="card-body">
-                    <!-- <div class="form-group row">
+                    <div class="form-group row">
                         <div class="col-md-8">
                             <div class="input-group">
                                 <select class="form-control col-md-3" v-model="criterio">
@@ -27,7 +27,7 @@
                                 <button type="submit" @click="limpiarBusqueda()" class="btn btn-success"><i class="fas fa-broom"></i> Limpiar Búsqueda</button>
                             </div>
                         </div>
-                    </div> -->
+                    </div>
                     <table class="table table-bordered table-striped table-sm">
                         <thead >
                             <tr >
@@ -35,7 +35,8 @@
                                 <th width="5%">Id</th>
                                 <th width="20%">Usuario</th>
                                 <th width="35%">Nombre</th>
-                                <th width="30%">Rol</th>
+                                <th width="20%">Rol</th>
+                                <th width="45%">Email</th>
                                 <th width="15%">Estado</th>
                             </tr>
                         </thead>
@@ -64,6 +65,7 @@
                                 <td v-text="usuarios.usuario"></td>
                                 <td v-text="usuarios.nombreusuario"></td>
                                 <td v-text="usuarios.nombre"></td>
+                                <td v-text="usuarios.email"></td>
                                 <td>
                                     <span v-if="usuarios.condicion===1" class="badge badge-success">Activo</span>
                                     <span v-if="usuarios.condicion===0" class="badge badge-danger">Inactivo</span>
@@ -123,6 +125,13 @@
                                         <option value="0">Seleccione Rol</option>
                                         <option v-for="roles in arrayRol" :key="roles.id" :value="roles.id" v-text="roles.nombre"></option>
                                     </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-md-3 form-control-label" for="text-input">Email</label>
+                                <div class="col-md-4">
+                                    <input type="email" v-model="email" class="form-control">
                                 </div>
                             </div>
 
@@ -256,6 +265,7 @@
                 nombreRol : '',
                 nombreusuario : '',
                 rpass: '',
+                email : '',
                 password : '',
                 arrayUser : [],
                 arrayRol : [],
@@ -384,6 +394,7 @@
                     'idrol' : this.idrol,
                     'nombreusuario' : this.nombreusuario,
                     'password' : this.password,
+                    'email' : this.email,
                 }).then(function (response){
                     me.cerrarModal();
                     me.listarUsuarios(1);
@@ -401,6 +412,7 @@
                     'usuario' : this.usuario,
                     'nombreusuario' : this.nombreusuario,
                     'idrol' : this.idrol,
+                    'email' : this.email,
                 }).then(function (response){
                     me.cerrarModal();
                     me.listarUsuarios(1);
@@ -415,7 +427,7 @@
                 if (!this.nombreusuario) this.errorMsgAlumna.push("Nombre usuario no pueden estar en Blanco");
                 if (!this.usuario) this.errorMsgAlumna.push("Datos del usuario no pueden estar en Blanco");
                 if (!this.idrol) this.errorMsgAlumna.push("Debe Seleccionar un Rol");
-                //if (!this.idusuario) this.errorMsgAlumna.push("Curso no pueden estar en Blanco");
+                if (!this.email) this.errorMsgAlumna.push("Debe Ingresar Email");
 
                 if(this.errorMsgAlumna.length) this.errorAlumna = 1;
 
@@ -610,6 +622,7 @@
                                 this.usuario = data['usuario'];
                                 this.nombreusuario = data['nombreusuario']
                                 this.idrol = data['idrol'];
+                                this.email = data['email'];
                                 break;
                            }
                            case 'password':

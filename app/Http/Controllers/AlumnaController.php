@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
 use App\Imports\AlumnasImport;
+use Carbon\Carbon;
 
 use App\Alumna;
 
@@ -120,7 +121,6 @@ class AlumnaController extends Controller
         if(!$request->ajax()) return redirect('/');
 
         $alumna = Alumna::findOrFail($request->id);
-        //$alumna->fecharetiro=$request->fecharetiro;
         $alumna->condicion='1';
         $alumna->save();
     }

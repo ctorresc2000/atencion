@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Equipo;
+use Carbon\Carbon;
 
 class EquipoController extends Controller
 {
@@ -75,11 +76,14 @@ class EquipoController extends Controller
     {
         if(!$request->ajax()) return redirect('/');
 
+        $fecha= Carbon::now();
+        $fecha=$fecha->format('d-m-Y');
+
         $equipos = new Equipo();
         $equipos->idalumna=$request->idalumna;
         $equipos->derivadopor=$request->derivadopor;
         $equipos->Motivo=$request->motivo;
-        
+        $equipos->fechaderivacion=$fecha; /* $request->fechaDerivacionOrientadora; */
         $equipos->antecedentes=$request->antecedentes;
         $equipos->condicion='1';
         $equipos->save();

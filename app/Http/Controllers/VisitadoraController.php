@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Visitadora;
+use Carbon\Carbon;
 
 class VisitadoraController extends Controller
 {
@@ -75,11 +76,14 @@ class VisitadoraController extends Controller
     {
         if(!$request->ajax()) return redirect('/');
 
+        $fecha= Carbon::now();
+        $fecha=$fecha->format('d-m-Y');
+
         $visitadoras = new Visitadora();
         $visitadoras->idalumna=$request->idalumna;
         $visitadoras->derivadopor=$request->derivadopor;
         $visitadoras->Motivo=$request->motivo;
-        
+        $visitadoras->fechaderivacion=$fecha; /* $request->fechaDerivacionOrientadora; */
         $visitadoras->antecedentes=$request->antecedentes;
         $visitadoras->condicion='1';
         $visitadoras->save();

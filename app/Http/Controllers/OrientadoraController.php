@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Orientadora;
+use Carbon\Carbon;
 //use App\Det_orientadora;
 use Illuminate\Support\Facades\Redirect;
 
@@ -23,12 +24,12 @@ class OrientadoraController extends Controller
 
         if ($buscar==''){
             $orientadoras = Orientadora::join('alumnas','orientadoras.idalumna','=','alumnas.id')
-            ->select('alumnas.curso','alumnas.letra','alumnas.apellidos','alumnas.nombres','orientadoras.id','orientadoras.derivadopor','orientadoras.motivo','orientadoras.antecedentes','orientadoras.idalumna')
+            ->select('alumnas.curso','alumnas.letra','alumnas.apellidos','alumnas.nombres','orientadoras.id','orientadoras.derivadopor','orientadoras.motivo','orientadoras.fechaderivacion','orientadoras.antecedentes','orientadoras.idalumna')
             ->OrderBy('alumnas.curso')->OrderBy('alumnas.letra')->OrderBy('alumnas.apellidos')->OrderBy('alumnas.nombres')->paginate(20);
         }
         else{
             $orientadoras = Orientadora::join('alumnas','orientadoras.idalumna','=','alumnas.id')
-            ->select('alumnas.curso','alumnas.letra','alumnas.apellidos','alumnas.nombres','orientadoras.id','orientadoras.derivadopor','orientadoras.motivo','orientadoras.antecedentes')
+            ->select('alumnas.curso','alumnas.letra','alumnas.apellidos','alumnas.nombres','orientadoras.id','orientadoras.derivadopor','orientadoras.motivo','orientadoras.antecedentes','orientadoras.fechaderivacion')
             ->where('alumnas.'.$criterio,'like','%' . $buscar .'%')->OrderBy('alumnas.curso')->OrderBy('alumnas.letra')->OrderBy('alumnas.apellidos')->OrderBy('alumnas.nombres')->paginate(20);
 
            // $alumnas = Alumna::where($criterio,'like','%'.$buscar.'%')->OrderBy('curso')->OrderBy('letra')->OrderBy('apellidos')->OrderBy('nombres')->paginate(20);
@@ -76,13 +77,16 @@ class OrientadoraController extends Controller
     public function store(Request $request)
     {
         if(!$request->ajax()) return redirect('/');
+        
+        $fecha= Carbon::now();
+        $fecha=$fecha->format('d-m-Y');
 
         $orientadoras = new Orientadora();
         $orientadoras->idalumna=$request->idalumna;
         $orientadoras->derivadopor=$request->derivadopor;
         $orientadoras->Motivo=$request->motivo;
-        
         $orientadoras->antecedentes=$request->antecedentes;
+        $orientadoras->fechaderivacion=$fecha; /* $request->fechaDerivacionOrientadora; */
         $orientadoras->condicion='1';
         $orientadoras->save();
     }
@@ -145,4 +149,5 @@ class OrientadoraController extends Controller
         $orientadoras->condicion='1';
         $orientadoras->save();
     }
+
 }

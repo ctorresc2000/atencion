@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Psicologa;
-
+use Carbon\Carbon;
 class PsicologaController extends Controller
 {
     /**
@@ -75,11 +75,14 @@ class PsicologaController extends Controller
     {
         if(!$request->ajax()) return redirect('/');
 
+        $fecha= Carbon::now();
+        $fecha=$fecha->format('d-m-Y');
+
         $psicologas = new Psicologa();
         $psicologas->idalumna=$request->idalumna;
         $psicologas->derivadopor=$request->derivadopor;
         $psicologas->Motivo=$request->motivo;
-        
+        $psicologas->fechaderivacion=$fecha; /* $request->fechaDerivacionOrientadora; */
         $psicologas->antecedentes=$request->antecedentes;
         $psicologas->condicion='1';
         $psicologas->save();

@@ -25,7 +25,7 @@
                                     <option value="curso">Curso</option>&nbsp;
                                 </select>
                                 <div class="col-md-2">
-                                    <select class="form-control" v-model="buscar">
+                                    <select class="form-control" v-model="buscar" title="Debe seleccionar la opción curso..">
                                         <option value="0">Curso</option>
                                         <option v-for="cursos in arrayCurso" :key="cursos.id" :value="cursos.curso" v-text="cursos.curso"></option>
                                     </select>
@@ -39,13 +39,13 @@
                     <table align="center" border="1" class="table table-bordered table-striped table-sm table-responsive">
                         <thead >
                             <tr >
-                                <th width="50px">Opciones</th>
+                                <th width="80px">Opciones</th>
                                 <th>Rut</th>
                                 <th>Curso</th>
                                 <th>Alumna</th>
                                 <th title="Orientadora">1</th>
                                 <th title="Psicóloga">2</th>
-                                <th title="Visitadora Social">3</th>
+                                <th title="Trabajadora Social">3</th>
                                 <th title="Convivencia Escolar">4</th>
                                 <th title="Equipo de Gestión">5</th>
                                 <th title="Terapeuta Ocupacional">6</th>
@@ -93,7 +93,7 @@
                                         <span><i class="fas fa-times"></i></span>
                                     </div>
                                 </td>
-                                <td title="Visitadora Social">
+                                <td title="Trabajadora Social">
                                     <div v-if="alumna.d_vsoc==1" class="badge badge-success">
                                         <span><i class="fas fa-check"></i></span>
                                     </div>
@@ -234,29 +234,10 @@
                                 <div class="col-md-4">
                                     <select class="form-control" v-model="curso">
                                         <option value="0">Seleccione Curso</option>
-                                        <option v-for="cursos in arrayCurso" :key="cursos.id" :value="cursos.curso" v-text="cursos.curso"></option>
+                                        <option v-for="cursos in arrayCurso" :key="cursos.id" :value="cursos.curso" v-text="cursos.curso"></option> 
                                     </select>
                                 </div>
                             </div>
-
-
-<!--                             <div class="form-group row">
-                                <label class="col-md-2 form-control-label" for="text-input">Curso</label>
-                                <div class="col-md-2">
-                                    <select v-model="curso" class="form-control">
-                                        <option>1° </option>
-                                        <option>2° </option>
-                                        <option>3° </option>
-                                        <option>4° </option>
-                                    </select>
- 
-                                </div>
-                                <label class="col-md-1 form-control-label" for="text-input">Letra</label>
-                                <div class="col-md-1">  
-                                    <input type="text" v-model="letra" class="form-control text-uppercase" placeholder="">
-                                </div>
-                            </div> -->
-
                             <div v-show="errorAlumna" class="form-group row div-error">
                                 <div class="text-center text-error">
                                     <div v-for="error in errorMsgAlumna" :key="error" v-text="error">
@@ -381,12 +362,8 @@
                                             <label class="form-check-label text-left" for="defaultCheck1">Orientadora</label>
                                         </div>
                                         <div class="form-check  col-md-6">
-                                            <select class="form-control" id="exampleFormControlSelect1">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
+                                            <select class="form-control" v-model="correoOr">
+                                                <option v-for="orient in arrayOrientadoras" :key="orient.id" :value="orient.email" v-text="orient.nombreusuario"></option>
                                             </select>
                                         </div>
                                     </div>
@@ -397,12 +374,8 @@
                                             <label class="form-check-label" for="defaultCheck1">Psicóloga</label>
                                         </div>
                                         <div class="form-check  col-md-6">
-                                            <select class="form-control" id="exampleFormControlSelect1">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
+                                            <select class="form-control" v-model="correoPs">
+                                                <option  v-for="psicol in arrayPsicologas" :key="psicol.id" :value="psicol.email" v-text="psicol.nombreusuario"></option>
                                             </select>
                                         </div>
                                     </div>
@@ -412,12 +385,9 @@
                                            <label class="form-check-label" for="defaultCheck1">Trabajadora Social</label>
                                         </div>                                        
                                         <div class="form-check  col-md-6">
-                                            <select class="form-control" id="exampleFormControlSelect1">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
+                                            <select class="form-control" v-model="correoTr">
+                                                <option  v-for="trab in arrayTrabajadoras" :key="trab.id" :value="trab.email" v-text="trab.nombreusuario">1</option>
+
                                             </select>
                                         </div>
                                     </div>
@@ -427,12 +397,9 @@
                                             <label class="form-check-label" for="defaultCheck1">Convivencia Escolar</label>                               
                                         </div>                                        
                                         <div class="form-check  col-md-6">
-                                            <select class="form-control" id="exampleFormControlSelect1">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
+                                            <select class="form-control" v-model="correoCo">
+                                                <option  v-for="conv in arrayConvivencias" :key="conv.id" :value="conv.email" v-text="conv.nombreusuario">1</option>
+
                                             </select>
                                         </div>
 
@@ -448,12 +415,9 @@
                                                 <label class="form-check-label" for="defaultCheck1">Equipo de Gestión</label>
                                             </div>
                                         <div class="form-check  col-md-6">
-                                            <select class="form-control" id="exampleFormControlSelect1">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
+                                            <select class="form-control" v-model="correoEq">
+                                                <option  v-for="ges in arrayGestion" :key="ges.id" :value="ges.email" v-text="ges.nombreusuario">1</option>
+
                                             </select>
                                         </div>
                                     </div> 
@@ -464,12 +428,9 @@
                                             <label class="form-check-label" for="defaultCheck1">Terapeuta Ocupacional</label>
                                         </div>
                                         <div class="form-check  col-md-6">
-                                            <select class="form-control" id="exampleFormControlSelect1">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
+                                            <select class="form-control" v-model="correoTe">
+                                                <option  v-for="ter in arrayTerapeutas" :key="ter.id" :value="ter.email" v-text="ter.nombreusuario">1</option>
+
                                             </select>
                                         </div>
                                     </div>
@@ -479,12 +440,9 @@
                                             <label class="form-check-label" for="defaultCheck1">Educadora Diferencial</label> 
                                         </div>
                                         <div class="form-check  col-md-6">
-                                            <select class="form-control" id="exampleFormControlSelect1">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
+                                            <select class="form-control" v-model="correoEd">
+                                                <option  v-for="ed in arrayEducadoras" :key="ed.id" :value="ed.email" v-text="ed.nombreusuario">1</option>
+
                                             </select>
                                         </div>
                                     </div>
@@ -551,14 +509,29 @@
                 apellidos : '',
                 nombres : '',
                 arrayAlumna : [],
+                arrayOrientadoras : [],
+                arrayPsicologas : [],
+                arrayTrabajadoras : [],
+                arrayConvivencias : [],
+                arrayGestion : [],
+                arrayEducadoras : [],
+                arrayTerapeutas : [],
                 modal : 0,
+                correoOr : '',
+                correoPs : '',
+                correoTr : '',
+                correoCo : '',
+                correoEq : '',
+                correoEd : '',
+                correoTe : '',
+                fechaDerivacionOrientadora : Date(),
                 modalRetiro : 0,
                 modalDerivacion : 0,
                 tituloModal : '',
                 tipoAccion : 0,
                 errorAlumna : 0,
                 errorMsgAlumna : [],
-                fecharetiro : 0,
+                fecharetiro :'',
                 opcionAlumna : '',
                 quienDeriva : '',
                 motivoDerivacion : '',
@@ -614,6 +587,70 @@
                     timer: 2000
                 }) 
             },
+
+            enviarCorreoOrientadora(){
+                axios.post('/contactar',{
+                    'destino' : this.correoOr,
+                }).then(function (response){
+                    }).catch(function(error){
+                        console.log(error);
+                    });
+            },
+
+            enviarCorreoPsicologa(){
+                axios.post('/contactar',{
+                    'destino' : this.correoPs,
+                }).then(function (response){
+                    }).catch(function(error){
+                        console.log(error);
+                    });
+            },
+
+            enviarCorreoTrabajadora(){
+                axios.post('/contactar',{
+                    'destino' : this.correoTr,
+                }).then(function (response){
+                    }).catch(function(error){
+                        console.log(error);
+                    });
+            },
+
+            enviarCorreoConvivencia(){
+                axios.post('/contactar',{
+                    'destino' : this.correoCo,
+                }).then(function (response){
+                    }).catch(function(error){
+                        console.log(error);
+                    });
+            },
+
+            enviarCorreoGestion(){
+                axios.post('/contactar',{
+                    'destino' : this.correoEq,
+                }).then(function (response){
+                    }).catch(function(error){
+                        console.log(error);
+                    });
+            },
+
+            enviarCorreoEducadora(){
+                axios.post('/contactar',{
+                    'destino' : this.correoEd,
+                }).then(function (response){
+                    }).catch(function(error){
+                        console.log(error);
+                    });
+            },
+
+            enviarCorreoTerapeuta(){
+                axios.post('/contactar',{
+                    'destino' : this.correoTe,
+                }).then(function (response){
+                    }).catch(function(error){
+                        console.log(error);
+                    });
+            },
+
             derivarAlumna(){ 
                 let me= this;
                 if(this.orient){
@@ -624,9 +661,9 @@
                         'derivadopor' : this.quienDeriva,
                         'motivo' : this.motivoDerivacion,
                         'antecedentes' : this.antecedentes,
-
+                   /*      'fechaDerivacion' : new Date(), */
                     }).then(function (response){
-                        
+                        me.enviarCorreoOrientadora();
                         me.cerrarModalderivacion();
                     }).catch(function(error){
                         console.log(error);
@@ -658,7 +695,7 @@
                         'antecedentes' : this.antecedentes,
 
                     }).then(function (response){
-                        
+                        me.enviarCorreoPsicologa();
                         me.cerrarModalderivacion();
                     }).catch(function(error){
                         console.log(error);
@@ -690,7 +727,7 @@
                         'antecedentes' : this.antecedentes,
 
                     }).then(function (response){
-                        
+                        me.enviarCorreoTrabajadora();
                         me.cerrarModalderivacion();
                     }).catch(function(error){
                         console.log(error);
@@ -721,7 +758,7 @@
                         'antecedentes' : this.antecedentes,
 
                     }).then(function (response){
-                        
+                        me.enviarCorreoConvivencia();
                         me.cerrarModalderivacion();
                     }).catch(function(error){
                         console.log(error);
@@ -752,7 +789,7 @@
                         'antecedentes' : this.antecedentes,
 
                     }).then(function (response){
-                        
+                        me.enviarCorreoGestion();
                         me.cerrarModalderivacion();
                     }).catch(function(error){
                         console.log(error);
@@ -783,7 +820,7 @@
                         'antecedentes' : this.antecedentes,
 
                     }).then(function (response){
-                        
+                        me.enviarCorreoTerapeuta();
                         me.cerrarModalderivacion();
                     }).catch(function(error){
                         console.log(error);
@@ -814,7 +851,7 @@
                         'antecedentes' : this.antecedentes,
 
                     }).then(function (response){
-                        
+                        me.enviarCorreoEducadora();
                         me.cerrarModalderivacion();
                     }).catch(function(error){
                         console.log(error);
@@ -998,6 +1035,7 @@
                                 this.nombres = data['nombres'];
                                 this.tituloModal = "Derivación de Alumna";
                                 this.opcionAlumna = "";
+ 
                                 break;
 
                             }
@@ -1080,13 +1118,19 @@
                 this.nombres = '';
                 this.errorAlumna=0;
                 this.fecharetiro=0;
-                
+                this.correoOr = '';
+                this.correoPs = '';
+                this.correoTr = '';
+                this.correoCo = '';
+                this.correoEq = '';
+                this.correoEd = '';
+                this.correoTe = '';
                 this.errorMsgAlumna=[];
             },
 
              listarCurso(page){
                 let me=this;
-                url =  '/curso?page=' + page;
+                url =  '/curso/cursoactivo';
                  axios.get(url).then(function (response) {
                      var respuesta = response.data;
                      me.arrayCurso = respuesta.cursos.data;
@@ -1133,11 +1177,32 @@
                         }
                     }
                 }
-            }
+            },
+            listar(page){
+                    let me=this;
+                    url =  '/user/listar';
+                    axios.get(url).then(function (response) {
+                        var respuesta = response.data;
+                        me.arrayOrientadoras = respuesta.orientadoras.data;
+                        me.arrayPsicologas = respuesta.psicologas.data;
+                        me.arrayTrabajadoras = respuesta.trabajadoras.data;
+                        me.arrayConvivencias = respuesta.convivencias.data;
+                        me.arrayGestion = respuesta.gestions.data;
+                        me.arrayEducadoras = respuesta.educadoras.data;
+                        me.arrayTerapeutas = respuesta.terapeutas.data;
+                        me.pagination = respuesta.pagination;
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            },    
         },
+        
         mounted() {
             this.listarAlumna(1,this.buscar,this.criterio);
             this.listarCurso(1);
+            this.listar(1);
+            
         }
     }
 </script>
