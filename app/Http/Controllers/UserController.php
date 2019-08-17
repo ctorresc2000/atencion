@@ -20,8 +20,8 @@ class UserController extends Controller
             ->select('users.id','users.usuario','users.nombreusuario','users.idrol','users.password','users.condicion','roles.nombre','users.email')->paginate(20);
         }
         else{
-            $usuarios = User::join('roles','users.idrol','roles.id')
-            ->select('users.id','users.usuario','users.idrol','users.nombreusuario','users.password','users.condicion','roles.nombre','users.email')->paginate(20);
+            $usuarios = User::join('roles','users.idrol','roles.id')->
+            where($criterio,'like','%'.$buscar.'%')->select('users.id','users.usuario','users.idrol','users.nombreusuario','users.password','users.condicion','roles.nombre','users.email')->paginate(20);
         }
 
 

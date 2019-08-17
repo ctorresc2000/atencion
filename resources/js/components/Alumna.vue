@@ -479,6 +479,7 @@
 
 <script>
     import datables from 'datatables'
+    import moment from 'moment'
     export default {
         /* props : ['ruta'], */
         data (){

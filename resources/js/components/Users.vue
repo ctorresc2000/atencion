@@ -18,12 +18,11 @@
                         <div class="col-md-8">
                             <div class="input-group">
                                 <select class="form-control col-md-3" v-model="criterio">
-                                    <option value="rut">Rut</option>
-                                    <option value="apellidos">Apellido</option>
-                                    <option value="nombres">Nombre</option>
+                                    <option value="nombreusuario">Nombre</option>
+                                    <option value="email">Correo</option>
                                 </select>
-                                <input type="text" v-model="buscar" @keyup.enter="listarAlumna(1,buscar,criterio)" class="form-control" placeholder="Texto a buscar (Rut sin digito)">
-                                <button type="submit" @click="listarAlumna(1,buscar,criterio)" class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>&nbsp;&nbsp;
+                                <input type="text" v-model="buscar" @keyup.enter="listarUsuarios(1,buscar,criterio)" class="form-control" placeholder="Texto a buscar">
+                                <button type="submit" @click="listarUsuarios(1,buscar,criterio)" class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>&nbsp;&nbsp;
                                 <button type="submit" @click="limpiarBusqueda()" class="btn btn-success"><i class="fas fa-broom"></i> Limpiar Búsqueda</button>
                             </div>
                         </div>
@@ -513,8 +512,8 @@
             limpiarBusqueda(){
                 let me = this;
                 this.buscar = '';
-                this.criterio = 'rut';
-                this.listarAlumna(1,this.buscar,this.criterio);
+                this.criterio = '';
+                this.listarUsuarios(1,this.buscar,this.criterio);
             },
             cerrarModalRetiro(){
                 this.modalRetiro = 0,
@@ -639,7 +638,7 @@
             }
         },
         mounted() {
-            this.listarUsuarios(1);
+            this.listarUsuarios(1,this.buscar,this.criterio);
         }
     }
 </script>
