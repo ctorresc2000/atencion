@@ -1,5 +1,7 @@
 <template>
+
     <main class="main">
+        <!-- <vuejs-datepicker :language="es"></vuejs-datepicker> -->
         <!-- Breadcrumb -->
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/">Escritorio</a></li>
@@ -148,7 +150,7 @@
                                         </button>
                                     </div>
                                     <div v-else>
-                                        <span class="badge badge-danger" v-text="alumna.fecharetiro" title="Fecha Retiro"></span>
+                                        <span class="badge badge-danger"  v-text="alumna.fecharetiro" title="Fecha Retiro"></span>
                                     </div>
                                     
                                 </td>
@@ -277,12 +279,13 @@
                             <h5  v-text="apellidos+' '+nombres"></h5>
                         </div>
                         <div v-if="tipoAccion==3">
-                            <div class="form-group col-md-12 text-center">
+                            <div class="form-group col-md-12 text-center">                                
                                 <label class=" form-control-label" for="text-input">Fecha Retiro</label>
                             </div> 
                             <div class="row">
                                 <div class="col-3"></div>
                                 <div class="col-5 text-center">
+                                    <!-- <datepicker class="form-control"  v-model="fecharetiro" ></datepicker> -->
                                     <input type="date" v-model="fecharetiro" class="form-control">
                                 </div>
                                 <div class="col-3"></div>
@@ -478,10 +481,11 @@
 </template>
 
 <script>
-    import datables from 'datatables'
-    import moment from 'moment'
+
+    /* import DateLanguages from './utils/DateLanguages' */
+
     export default {
-        /* props : ['ruta'], */
+            
         data (){
             return {
                 antecedentes : '',
@@ -532,7 +536,7 @@
                 tipoAccion : 0,
                 errorAlumna : 0,
                 errorMsgAlumna : [],
-                fecharetiro :'',
+                fecharetiro : null,
                 opcionAlumna : '',
                 quienDeriva : '',
                 motivoDerivacion : '',
@@ -876,24 +880,7 @@
                 }
                 
             },
-/*             mytable(){
-                
-                 $(function() {
-                 $('#TablaDatos').DataTable({
-                    dom: 'Blfrtip',
-                    language:{
-                         "emptyTable": "No hay información",
-                         "info": "Mostrando _START_ de _END_ de _TOTAL_ Datos",
-                         "search": "Buscar:",
-                         "lengthMenu": "Mostrar _MENU_ Datos por página",
-                         "paginate":{"next": "Siguiente","previous": "Anterior","first": "Primero","last": "Último"},
-                         },
-                    buttons: ['excel','pdf','print']  
-                    });
-               });   
-            }, */
-
-            
+          
             listarAlumna(page,buscar,criterio){
                 let me=this;
                 url ='/alumna?page=' + page + '&buscar='+buscar+'&criterio='+criterio;
@@ -901,7 +888,6 @@
                      var respuesta = response.data;
                      me.arrayAlumna = respuesta.alumnas.data;
                      me.pagination = respuesta.pagination;
-                     /* me.mytable() */
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -1085,6 +1071,11 @@
                     console.log(error);
                 });
             },
+
+           /*  customFormatter(fecharetiro) {
+                
+                return moment(this.fecharetiro).format('DD-MM-YYYY');
+            }, */
             retirarAlumna(){
                 if (this.validarAlumnaRetirada()){
                     return;
@@ -1092,7 +1083,7 @@
                 let me  =this;
                 axios.put( '/alumna/retirar',{
                     'id' : this.alumna_id,
-                    'fecharetiro' : this.fecharetiro,
+                    'fecharetiro' : this.fecharetiro,  /*this.fecharetiro, */
                 }).then(function (response){
                     Swal.fire({
                         position: 'center',

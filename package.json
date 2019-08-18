@@ -28,6 +28,7 @@
         "datatables": "^1.10.18",
         "moment": "^2.24.0",
         "portal-vue": "^2.1.4",
-        "sweetalert2": "^8.8.7"
+        "sweetalert2": "^8.8.7",
+        "vuejs-datepicker": "^1.6.2"
     }
 }
