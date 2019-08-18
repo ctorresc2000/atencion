@@ -67,7 +67,7 @@
                                     </td> -->
                                     <!-- <td v-text="orientadora.id"></td> -->
                                    <!--  <td v-text="orientadora.id" ></td> -->
-                                    <td v-text="orientadora.curso+' '+orientadora.letra"></td>
+                                    <td v-text="orientadora.curso"></td>
                                     <td v-text="orientadora.apellidos +' '+ orientadora.nombres"></td>
                                     <td v-text="orientadora.derivadopor"></td>
                                     <td v-text="orientadora.motivo"></td>
@@ -133,6 +133,15 @@
                     <div class="form-group col-6">
                         <h3 class="form-control-label text-center">Curso</h3>
                         <h4 class="form-control-label text-center" v-text="curso+' '+letra"></h4> 
+                    </div>
+
+                    <div class="form-group col-12">
+                        <label for=""></label>
+                        <label for=""></label>
+                        <h3 class="form-control-label text-center">Motivo Derivación</h3>
+                        <h6 class="form-control-label text-justify" v-text="motivo"></h6> 
+                        <label for=""></label>
+                        <label for=""></label>
                     </div>
 
                     <div class="form-group col-12">
@@ -551,7 +560,7 @@
                                 this.nombres = data['nombres'];
                                 this.apellidos = data['apellidos'];
                                 this.curso = data['curso'];
-                                this.letra = data['letra'];
+                                this.motivo = data['motivo'];
                                 this.antecedentes = data['antecedentes'];
                                 this.listarDetalleOrientadora(1);
                                 break;

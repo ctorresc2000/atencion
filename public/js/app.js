@@ -3134,6 +3134,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   /* props: ['ruta'], */
   data: function data() {
@@ -3457,7 +3466,7 @@ __webpack_require__.r(__webpack_exports__);
                   this.nombres = data['nombres'];
                   this.apellidos = data['apellidos'];
                   this.curso = data['curso'];
-                  this.letra = data['letra'];
+                  this.motivo = data['motivo'];
                   this.antecedentes = data['antecedentes'];
                   this.listarDetalleOrientadora();
                   break;
@@ -4181,6 +4190,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   /* props: ['ruta'], */
   data: function data() {
@@ -4504,7 +4522,7 @@ __webpack_require__.r(__webpack_exports__);
                   this.nombres = data['nombres'];
                   this.apellidos = data['apellidos'];
                   this.curso = data['curso'];
-                  this.letra = data['letra'];
+                  this.motivo = data['motivo'];
                   this.antecedentes = data['antecedentes'];
                   this.listarDetalleOrientadora();
                   break;
@@ -4632,6 +4650,15 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -5172,7 +5199,7 @@ __webpack_require__.r(__webpack_exports__);
                   this.nombres = data['nombres'];
                   this.apellidos = data['apellidos'];
                   this.curso = data['curso'];
-                  this.letra = data['letra'];
+                  this.motivo = data['motivo'];
                   this.antecedentes = data['antecedentes'];
                   this.listarDetalleOrientadora();
                   break;
@@ -5263,6 +5290,15 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -5809,7 +5845,7 @@ __webpack_require__.r(__webpack_exports__);
                   this.nombres = data['nombres'];
                   this.apellidos = data['apellidos'];
                   this.curso = data['curso'];
-                  this.letra = data['letra'];
+                  this.motivo = data['motivo'];
                   this.antecedentes = data['antecedentes'];
                   this.listarDetalleOrientadora();
                   break;
@@ -5835,6 +5871,15 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -6375,7 +6420,7 @@ __webpack_require__.r(__webpack_exports__);
                   this.nombres = data['nombres'];
                   this.apellidos = data['apellidos'];
                   this.curso = data['curso'];
-                  this.letra = data['letra'];
+                  this.motivo = data['motivo'];
                   this.antecedentes = data['antecedentes'];
                   this.listarDetalleOrientadora(1);
                   break;
@@ -8480,6 +8525,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   /* props: ['ruta'], */
   data: function data() {
@@ -8803,7 +8857,7 @@ __webpack_require__.r(__webpack_exports__);
                   this.nombres = data['nombres'];
                   this.apellidos = data['apellidos'];
                   this.curso = data['curso'];
-                  this.letra = data['letra'];
+                  this.motivo = data['motivo'];
                   this.antecedentes = data['antecedentes'];
                   this.listarDetalleOrientadora();
                   break;
@@ -9689,6 +9743,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   /*  props: ['ruta'], */
   data: function data() {
@@ -10012,7 +10075,7 @@ __webpack_require__.r(__webpack_exports__);
                   this.nombres = data['nombres'];
                   this.apellidos = data['apellidos'];
                   this.curso = data['curso'];
-                  this.letra = data['letra'];
+                  this.motivo = data['motivo'];
                   this.antecedentes = data['antecedentes'];
                   this.listarDetalleOrientadora();
                   break;
@@ -51616,8 +51679,27 @@ var render = function() {
                 _vm._v(" "),
                 _c("h4", {
                   staticClass: "form-control-label text-center",
-                  domProps: { textContent: _vm._s(_vm.curso + " " + _vm.letra) }
+                  domProps: { textContent: _vm._s(_vm.curso) }
                 })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group col-12" }, [
+                _c("label", { attrs: { for: "" } }),
+                _vm._v(" "),
+                _c("label", { attrs: { for: "" } }),
+                _vm._v(" "),
+                _c("h3", { staticClass: "form-control-label text-center" }, [
+                  _vm._v("Motivo")
+                ]),
+                _vm._v(" "),
+                _c("h6", {
+                  staticClass: "form-control-label text-justify",
+                  domProps: { textContent: _vm._s(_vm.motivo) }
+                }),
+                _vm._v(" "),
+                _c("label", { attrs: { for: "" } }),
+                _vm._v(" "),
+                _c("label", { attrs: { for: "" } })
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "form-group col-12" }, [
@@ -52614,11 +52696,7 @@ var render = function() {
                       _vm._l(_vm.arrayOrientadora, function(orientadora) {
                         return _c("tr", { key: orientadora.id }, [
                           _c("td", {
-                            domProps: {
-                              textContent: _vm._s(
-                                orientadora.curso + " " + orientadora.letra
-                              )
-                            }
+                            domProps: { textContent: _vm._s(orientadora.curso) }
                           }),
                           _vm._v(" "),
                           _c("td", {
@@ -52808,6 +52886,25 @@ var render = function() {
                   staticClass: "form-control-label text-center",
                   domProps: { textContent: _vm._s(_vm.curso + " " + _vm.letra) }
                 })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group col-12" }, [
+                _c("label", { attrs: { for: "" } }),
+                _vm._v(" "),
+                _c("label", { attrs: { for: "" } }),
+                _vm._v(" "),
+                _c("h3", { staticClass: "form-control-label text-center" }, [
+                  _vm._v("Motivo Derivación")
+                ]),
+                _vm._v(" "),
+                _c("h6", {
+                  staticClass: "form-control-label text-justify",
+                  domProps: { textContent: _vm._s(_vm.motivo) }
+                }),
+                _vm._v(" "),
+                _c("label", { attrs: { for: "" } }),
+                _vm._v(" "),
+                _c("label", { attrs: { for: "" } })
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "form-group col-12" }, [
@@ -53341,11 +53438,7 @@ var render = function() {
                       _vm._l(_vm.arrayOrientadora, function(orientadora) {
                         return _c("tr", { key: orientadora.id }, [
                           _c("td", {
-                            domProps: {
-                              textContent: _vm._s(
-                                orientadora.curso + " " + orientadora.letra
-                              )
-                            }
+                            domProps: { textContent: _vm._s(orientadora.curso) }
                           }),
                           _vm._v(" "),
                           _c("td", {
@@ -53535,6 +53628,25 @@ var render = function() {
                   staticClass: "form-control-label text-center",
                   domProps: { textContent: _vm._s(_vm.curso + " " + _vm.letra) }
                 })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group col-12" }, [
+                _c("label", { attrs: { for: "" } }),
+                _vm._v(" "),
+                _c("label", { attrs: { for: "" } }),
+                _vm._v(" "),
+                _c("h3", { staticClass: "form-control-label text-center" }, [
+                  _vm._v("Motivo Derivación")
+                ]),
+                _vm._v(" "),
+                _c("h6", {
+                  staticClass: "form-control-label text-justify",
+                  domProps: { textContent: _vm._s(_vm.motivo) }
+                }),
+                _vm._v(" "),
+                _c("label", { attrs: { for: "" } }),
+                _vm._v(" "),
+                _c("label", { attrs: { for: "" } })
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "form-group col-12" }, [
@@ -54219,6 +54331,25 @@ var render = function() {
                 _c("label", { attrs: { for: "" } }),
                 _vm._v(" "),
                 _c("h3", { staticClass: "form-control-label text-center" }, [
+                  _vm._v("Motivo Derivación")
+                ]),
+                _vm._v(" "),
+                _c("h6", {
+                  staticClass: "form-control-label text-justify",
+                  domProps: { textContent: _vm._s(_vm.motivo) }
+                }),
+                _vm._v(" "),
+                _c("label", { attrs: { for: "" } }),
+                _vm._v(" "),
+                _c("label", { attrs: { for: "" } })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group col-12" }, [
+                _c("label", { attrs: { for: "" } }),
+                _vm._v(" "),
+                _c("label", { attrs: { for: "" } }),
+                _vm._v(" "),
+                _c("h3", { staticClass: "form-control-label text-center" }, [
                   _vm._v("Seguimiento")
                 ]),
                 _vm._v(" "),
@@ -54617,11 +54748,7 @@ var render = function() {
                       _vm._l(_vm.arrayOrientadora, function(orientadora) {
                         return _c("tr", { key: orientadora.id }, [
                           _c("td", {
-                            domProps: {
-                              textContent: _vm._s(
-                                orientadora.curso + " " + orientadora.letra
-                              )
-                            }
+                            domProps: { textContent: _vm._s(orientadora.curso) }
                           }),
                           _vm._v(" "),
                           _c("td", {
@@ -54811,6 +54938,25 @@ var render = function() {
                   staticClass: "form-control-label text-center",
                   domProps: { textContent: _vm._s(_vm.curso + " " + _vm.letra) }
                 })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group col-12" }, [
+                _c("label", { attrs: { for: "" } }),
+                _vm._v(" "),
+                _c("label", { attrs: { for: "" } }),
+                _vm._v(" "),
+                _c("h3", { staticClass: "form-control-label text-center" }, [
+                  _vm._v("Motivo Derivación")
+                ]),
+                _vm._v(" "),
+                _c("h6", {
+                  staticClass: "form-control-label text-justify",
+                  domProps: { textContent: _vm._s(_vm.motivo) }
+                }),
+                _vm._v(" "),
+                _c("label", { attrs: { for: "" } }),
+                _vm._v(" "),
+                _c("label", { attrs: { for: "" } })
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "form-group col-12" }, [
@@ -58274,11 +58420,7 @@ var render = function() {
                       _vm._l(_vm.arrayOrientadora, function(orientadora) {
                         return _c("tr", { key: orientadora.id }, [
                           _c("td", {
-                            domProps: {
-                              textContent: _vm._s(
-                                orientadora.curso + " " + orientadora.letra
-                              )
-                            }
+                            domProps: { textContent: _vm._s(orientadora.curso) }
                           }),
                           _vm._v(" "),
                           _c("td", {
@@ -58468,6 +58610,25 @@ var render = function() {
                   staticClass: "form-control-label text-center",
                   domProps: { textContent: _vm._s(_vm.curso + " " + _vm.letra) }
                 })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group col-12" }, [
+                _c("label", { attrs: { for: "" } }),
+                _vm._v(" "),
+                _c("label", { attrs: { for: "" } }),
+                _vm._v(" "),
+                _c("h3", { staticClass: "form-control-label text-center" }, [
+                  _vm._v("Motivo Derivación")
+                ]),
+                _vm._v(" "),
+                _c("h6", {
+                  staticClass: "form-control-label text-justify",
+                  domProps: { textContent: _vm._s(_vm.motivo) }
+                }),
+                _vm._v(" "),
+                _c("label", { attrs: { for: "" } }),
+                _vm._v(" "),
+                _c("label", { attrs: { for: "" } })
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "form-group col-12" }, [
@@ -59962,11 +60123,7 @@ var render = function() {
                       _vm._l(_vm.arrayOrientadora, function(orientadora) {
                         return _c("tr", { key: orientadora.id }, [
                           _c("td", {
-                            domProps: {
-                              textContent: _vm._s(
-                                orientadora.curso + " " + orientadora.letra
-                              )
-                            }
+                            domProps: { textContent: _vm._s(orientadora.curso) }
                           }),
                           _vm._v(" "),
                           _c("td", {
@@ -60156,6 +60313,25 @@ var render = function() {
                   staticClass: "form-control-label text-center",
                   domProps: { textContent: _vm._s(_vm.curso + " " + _vm.letra) }
                 })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group col-12" }, [
+                _c("label", { attrs: { for: "" } }),
+                _vm._v(" "),
+                _c("label", { attrs: { for: "" } }),
+                _vm._v(" "),
+                _c("h3", { staticClass: "form-control-label text-center" }, [
+                  _vm._v("Motivo Derivación")
+                ]),
+                _vm._v(" "),
+                _c("h6", {
+                  staticClass: "form-control-label text-justify",
+                  domProps: { textContent: _vm._s(_vm.motivo) }
+                }),
+                _vm._v(" "),
+                _c("label", { attrs: { for: "" } }),
+                _vm._v(" "),
+                _c("label", { attrs: { for: "" } })
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "form-group col-12" }, [

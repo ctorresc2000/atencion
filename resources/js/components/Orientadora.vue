@@ -138,6 +138,15 @@
                     <div class="form-group col-12">
                         <label for=""></label>
                         <label for=""></label>
+                        <h3 class="form-control-label text-center">Motivo Derivación</h3>
+                        <h6 class="form-control-label text-justify" v-text="motivo"></h6> 
+                        <label for=""></label>
+                        <label for=""></label>
+                    </div>
+
+                    <div class="form-group col-12">
+                        <label for=""></label>
+                        <label for=""></label>
                         <h3 class="form-control-label text-center">Seguimiento</h3>
                         <h6 class="form-control-label text-justify" v-text="antecedentes"></h6> 
                         <label for=""></label>
@@ -557,7 +566,7 @@ $("#datetime").datetimepicker({
                                 this.nombres = data['nombres'];
                                 this.apellidos = data['apellidos'];
                                 this.curso = data['curso'];
-                                this.letra = data['letra'];
+                                this.motivo = data['motivo'];
                                 this.antecedentes = data['antecedentes'];
                                 this.listarDetalleOrientadora();
                                 break;

@@ -15,7 +15,7 @@ class CreateAlumnasTable extends Migration
     {
         Schema::create('alumnas', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('rut',12);
+            $table->string('rut',12)->unique();
             $table->string('digito',2)->nullable();
             $table->string('curso',10);
             $table->string('apellidos',50);
@@ -27,7 +27,7 @@ class CreateAlumnasTable extends Migration
             $table->boolean('d_egest')->default(0);
             $table->boolean('d_ter')->default(0);
             $table->boolean('d_edif')->default(0);
-            $table->date('fecharetiro');
+            $table->date('fecharetiro')->nullable();
             $table->boolean('condicion')->default(1);
             $table->timestamps();
         });
