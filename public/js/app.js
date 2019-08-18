@@ -2271,6 +2271,7 @@ __webpack_require__.r(__webpack_exports__);
       digito: '',
       curso: '',
       curso2: '',
+      curso3: '',
       cursoyLetra: '',
       letra: '',
       apellidos: '',
@@ -2359,49 +2360,63 @@ __webpack_require__.r(__webpack_exports__);
     },
     enviarCorreoOrientadora: function enviarCorreoOrientadora() {
       axios.post('/contactar', {
-        'destino': this.correoOr
+        'destino': this.correoOr,
+        'alumna': this.nombres + ' ' + this.apellidos,
+        'curso': this.curso3
       }).then(function (response) {})["catch"](function (error) {
         console.log(error);
       });
     },
     enviarCorreoPsicologa: function enviarCorreoPsicologa() {
       axios.post('/contactar', {
-        'destino': this.correoPs
+        'destino': this.correoPs,
+        'alumna': this.nombres + ' ' + this.apellidos,
+        'curso': this.curso3
       }).then(function (response) {})["catch"](function (error) {
         console.log(error);
       });
     },
     enviarCorreoTrabajadora: function enviarCorreoTrabajadora() {
       axios.post('/contactar', {
-        'destino': this.correoTr
+        'destino': this.correoTr,
+        'alumna': this.nombres + ' ' + this.apellidos,
+        'curso': this.curso3
       }).then(function (response) {})["catch"](function (error) {
         console.log(error);
       });
     },
     enviarCorreoConvivencia: function enviarCorreoConvivencia() {
       axios.post('/contactar', {
-        'destino': this.correoCo
+        'destino': this.correoCo,
+        'alumna': this.nombres + ' ' + this.apellidos,
+        'curso': this.curso3
       }).then(function (response) {})["catch"](function (error) {
         console.log(error);
       });
     },
     enviarCorreoGestion: function enviarCorreoGestion() {
       axios.post('/contactar', {
-        'destino': this.correoEq
+        'destino': this.correoEq,
+        'alumna': this.nombres + ' ' + this.apellidos,
+        'curso': this.curso3
       }).then(function (response) {})["catch"](function (error) {
         console.log(error);
       });
     },
     enviarCorreoEducadora: function enviarCorreoEducadora() {
       axios.post('/contactar', {
-        'destino': this.correoEd
+        'destino': this.correoEd,
+        'alumna': this.nombres + ' ' + this.apellidos,
+        'curso': this.curso3
       }).then(function (response) {})["catch"](function (error) {
         console.log(error);
       });
     },
     enviarCorreoTerapeuta: function enviarCorreoTerapeuta() {
       axios.post('/contactar', {
-        'destino': this.correoTe
+        'destino': this.correoTe,
+        'alumna': this.nombres + ' ' + this.apellidos,
+        'curso': this.curso3
       }).then(function (response) {})["catch"](function (error) {
         console.log(error);
       });
@@ -2737,6 +2752,7 @@ __webpack_require__.r(__webpack_exports__);
                   this.apellidos = data['apellidos'];
                   this.nombres = data['nombres'];
                   this.tituloModal = "Derivación de Alumna";
+                  this.curso3 = data['curso'];
                   this.opcionAlumna = "";
                   break;
                 }
@@ -50291,7 +50307,14 @@ var render = function() {
                   _vm._v(" "),
                   _c("h4", {
                     domProps: {
-                      textContent: _vm._s(_vm.apellidos + " " + _vm.nombres)
+                      textContent: _vm._s(
+                        _vm.apellidos +
+                          " " +
+                          _vm.nombres +
+                          " (" +
+                          _vm.curso3 +
+                          ")"
+                      )
                     }
                   })
                 ]),

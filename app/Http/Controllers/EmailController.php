@@ -10,8 +10,10 @@ class EmailController extends Controller
 {
     public function contact(Request $request){
         $correoDestino = $request->destino;
-        $subject = "Derivación de Alumna";
-        $for = $correoDestino;
+        $alumna=$request->alumna;
+        $curso =$request->curso;
+        $subject = "Derivación de Alumna".' '.$alumna;
+        $for = [$correoDestino];
         Mail::send('email',$request->all(), function($msj) use($subject,$for){
             $msj->from("derivaciones.ltsm@gmail.com","Derivaciones");
             $msj->subject($subject);

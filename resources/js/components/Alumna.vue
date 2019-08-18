@@ -328,7 +328,7 @@
                     <div class="form-group col-12 text-center" >
                         <div>
                             <h3 v-text="opcionAlumna"></h3>
-                            <h4  v-text="apellidos+' '+nombres"></h4>
+                            <h4  v-text="apellidos+' '+nombres+' ('+curso3+')'"></h4>
                         </div>
                         <label for=""></label>
                         <!--  -->
@@ -509,6 +509,7 @@
                 digito : '',
                 curso : '',
                 curso2 : '',
+                curso3 : '',
                 cursoyLetra : '',
                 letra : '',
                 apellidos : '',
@@ -596,6 +597,8 @@
             enviarCorreoOrientadora(){
                 axios.post('/contactar',{
                     'destino' : this.correoOr,
+                    'alumna' : this.nombres+' '+this.apellidos,
+                    'curso' : this.curso3,
                 }).then(function (response){
                     }).catch(function(error){
                         console.log(error);
@@ -605,6 +608,8 @@
             enviarCorreoPsicologa(){
                 axios.post('/contactar',{
                     'destino' : this.correoPs,
+                    'alumna' : this.nombres+' '+this.apellidos,
+                    'curso' : this.curso3,
                 }).then(function (response){
                     }).catch(function(error){
                         console.log(error);
@@ -614,6 +619,8 @@
             enviarCorreoTrabajadora(){
                 axios.post('/contactar',{
                     'destino' : this.correoTr,
+                    'alumna' : this.nombres+' '+this.apellidos,
+                    'curso' : this.curso3,
                 }).then(function (response){
                     }).catch(function(error){
                         console.log(error);
@@ -623,6 +630,8 @@
             enviarCorreoConvivencia(){
                 axios.post('/contactar',{
                     'destino' : this.correoCo,
+                    'alumna' : this.nombres+' '+this.apellidos,
+                    'curso' : this.curso3,
                 }).then(function (response){
                     }).catch(function(error){
                         console.log(error);
@@ -632,6 +641,8 @@
             enviarCorreoGestion(){
                 axios.post('/contactar',{
                     'destino' : this.correoEq,
+                    'alumna' : this.nombres+' '+this.apellidos,
+                    'curso' : this.curso3,
                 }).then(function (response){
                     }).catch(function(error){
                         console.log(error);
@@ -641,6 +652,8 @@
             enviarCorreoEducadora(){
                 axios.post('/contactar',{
                     'destino' : this.correoEd,
+                    'alumna' : this.nombres+' '+this.apellidos,
+                    'curso' : this.curso3,
                 }).then(function (response){
                     }).catch(function(error){
                         console.log(error);
@@ -650,6 +663,8 @@
             enviarCorreoTerapeuta(){
                 axios.post('/contactar',{
                     'destino' : this.correoTe,
+                    'alumna' : this.nombres+' '+this.apellidos,
+                    'curso' : this.curso3,
                 }).then(function (response){
                     }).catch(function(error){
                         console.log(error);
@@ -1021,6 +1036,7 @@
                                 this.apellidos = data['apellidos'];
                                 this.nombres = data['nombres'];
                                 this.tituloModal = "Derivación de Alumna";
+                                this.curso3 = data['curso'];
                                 this.opcionAlumna = "";
  
                                 break;
