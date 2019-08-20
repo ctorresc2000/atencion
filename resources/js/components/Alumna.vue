@@ -145,8 +145,7 @@
                                 </td>
                                 <td>
                                     <div v-if="alumna.condicion==1">
-                                        <button  type="button" @click="abrirModalderivacion('alumna','derivar',alumna)" class="btn btn-Info btn-sm" data-toggle="modal" data-target="#modalNuevo" title="Derivar">
-                                        <!-- abrirModalderivacion('alumna','derivar',alumna) -->
+                                        <button  type="button" @click="abrirModalderivacion('alumna','derivar',alumna)" class="btn btn-Info btn-sm text-center" data-toggle="modal" data-target="#modalNuevo" title="Derivar">
                                         <i class="icon-paper-plane"></i>
                                         </button>
                                     </div>
@@ -316,167 +315,168 @@
 
 
         <!-- Inicio del modal Derivación -->
-        <div class="modal fade" tabindex="-1" :class="{'mostrar' : modalDerivacion}" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
-            <div class="modal-dialog modal-success modal-lg" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title" v-text="tituloModal"></h4>
-                        <button type="button" class="close" @click="cerrarModalderivacion()" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-
-                    <div class="form-group col-12 text-center" >
-                        <div>
-                            <h3 v-text="opcionAlumna"></h3>
-                            <h4  v-text="apellidos+' '+nombres+' ('+curso3+')'"></h4>
+        <div class="modal fade" tabindex="-1" :class="{'mostrar' : modalDerivacion}" role="dialog" aria-labelledby="myModalLabel"  style="overflow-y: scroll;display: none;" aria-hidden="true"><!-- style="" -->
+                <div class="modal-dialog modal-success modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" v-text="tituloModal"></h4>
+                            <button type="button" class="close" @click="cerrarModalderivacion()" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
                         </div>
-                        <label for=""></label>
-                        <!--  -->
-                        <form action="" method="POST" enctype="multipart/form-data" class="form-horizontal">
 
-                            <div class="row">
-                                <div class="form-group col-6">
-                                    <h6 class="form-control-label" for="text-input">Quien Deriva?</h6>
-                                    <label type="text" v-text="quienDeriva" class="form-control"></label>
-                                </div>
-                                <div class="form-group col-6">
-                                    <h6 class="form-control-label" for="text-input">Motivo Derivación</h6>
-                                    <input type="text" v-model="motivoDerivacion" class="form-control" placeholder="Motivo">
-                                </div> 
-                            </div>
-
-                            <div class="row">
-                                <div class="form-group col-12">
-                                    <h5 class="form-control-label" for="text-input">Diagnóstico</h5>
-                                    <textarea type="text" v-model="antecedentes" class="form-control" placeholder="Detalle..."></textarea>
-                                </div>
-                            </div>
-
+                        <div class="form-group col-12 text-center" >
                             <div>
-                                <div class="form-group col-md-12 text-center">
-                                    <h4 class=" form-control-label" for="text-input">¿A quien Deriva?</h4>
-                                </div> 
+                                <h3 v-text="opcionAlumna"></h3>
+                                <h4  v-text="apellidos+' '+nombres+' ('+curso3+')'"></h4>
                             </div>
-                            <div class="row">
-                                <div class="form-group col-6">
-                                    <div class="row">
-                                        <div class="form-check text-left col-md-6">
-                                            &nbsp;&nbsp;&nbsp;<input class="form-check-input " type="checkbox" v-model="orient">
-                                            <label class="form-check-label text-left" for="defaultCheck1">Orientadora</label>
-                                        </div>
-                                        <div class="form-check  col-md-6">
-                                            <select class="form-control" v-model="correoOr">
-                                                <option v-for="orient in arrayOrientadoras" :key="orient.id" :value="orient.email" v-text="orient.nombreusuario"></option>
-                                            </select>
-                                        </div>
+                            <label for=""></label>
+                            <!--  -->
+                            <form action="" method="POST" enctype="multipart/form-data" class="form-horizontal">
+
+                                <div class="row">
+                                    <div class="form-group col-6">
+                                        <h6 class="form-control-label" for="text-input">Quien Deriva?</h6>
+                                        <label type="text" v-text="quienDeriva" class="form-control"></label>
                                     </div>
-
-                                    <div class="row">
-                                        <div class="form-check  text-left   col-md-6">
-                                            &nbsp;&nbsp;&nbsp;<input class="form-check-input" type="checkbox" v-model="psicol">
-                                            <label class="form-check-label" for="defaultCheck1">Psicóloga</label>
-                                        </div>
-                                        <div class="form-check  col-md-6">
-                                            <select class="form-control" v-model="correoPs">
-                                                <option  v-for="psicol in arrayPsicologas" :key="psicol.id" :value="psicol.email" v-text="psicol.nombreusuario"></option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="form-check  text-left   col-md-6">
-                                            &nbsp;&nbsp;&nbsp;<input class="form-check-input" type="checkbox" v-model="visit">
-                                           <label class="form-check-label" for="defaultCheck1">Trabajadora Social</label>
-                                        </div>                                        
-                                        <div class="form-check  col-md-6">
-                                            <select class="form-control" v-model="correoTr">
-                                                <option  v-for="trab in arrayTrabajadoras" :key="trab.id" :value="trab.email" v-text="trab.nombreusuario">1</option>
-
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="form-check  text-left   col-md-6">
-                                            &nbsp;&nbsp;&nbsp;<input class="form-check-input" type="checkbox" v-model="conviv">
-                                            <label class="form-check-label" for="defaultCheck1">Convivencia Escolar</label>                               
-                                        </div>                                        
-                                        <div class="form-check  col-md-6">
-                                            <select class="form-control" v-model="correoCo">
-                                                <option  v-for="conv in arrayConvivencias" :key="conv.id" :value="conv.email" v-text="conv.nombreusuario">1</option>
-
-                                            </select>
-                                        </div>
-
-                                    </div>
-    
-                                </div>
-
-
-                                <div class="form-group col-6">
-                                    <div class="row">
-                                            <div class="form-check  text-left   col-md-6">
-                                                <input class="form-check-input" type="checkbox" v-model="gest">
-                                                <label class="form-check-label" for="defaultCheck1">Equipo de Gestión</label>
-                                            </div>
-                                        <div class="form-check  col-md-6">
-                                            <select class="form-control" v-model="correoEq">
-                                                <option  v-for="ges in arrayGestion" :key="ges.id" :value="ges.email" v-text="ges.nombreusuario">1</option>
-
-                                            </select>
-                                        </div>
+                                    <div class="form-group col-6">
+                                        <h6 class="form-control-label" for="text-input">Motivo Derivación</h6>
+                                        <input type="text" v-model="motivoDerivacion" class="form-control" placeholder="Motivo">
                                     </div> 
+                                </div>
 
-                                    <div class="row">
-                                        <div class="form-check   text-left  col-md-6">
-                                            <input class="form-check-input" type="checkbox" v-model="terap">
-                                            <label class="form-check-label" for="defaultCheck1">Terapeuta Ocupacional</label>
-                                        </div>
-                                        <div class="form-check  col-md-6">
-                                            <select class="form-control" v-model="correoTe">
-                                                <option  v-for="ter in arrayTerapeutas" :key="ter.id" :value="ter.email" v-text="ter.nombreusuario">1</option>
-
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="form-check  text-left   col-md-6">
-                                            <input class="form-check-input" type="checkbox" v-model="difer">
-                                            <label class="form-check-label" for="defaultCheck1">Educadora Diferencial</label> 
-                                        </div>
-                                        <div class="form-check  col-md-6">
-                                            <select class="form-control" v-model="correoEd">
-                                                <option  v-for="ed in arrayEducadoras" :key="ed.id" :value="ed.email" v-text="ed.nombreusuario">1</option>
-
-                                            </select>
-                                        </div>
+                                <div class="row">
+                                    <div class="form-group col-12">
+                                        <h5 class="form-control-label" for="text-input">Diagnóstico</h5>
+                                        <textarea type="text" v-model="antecedentes" class="form-control" placeholder="Detalle..."></textarea>
                                     </div>
                                 </div>
-                              
-                            </div>
 
-                        </form>
-                        <!--  -->
+                                <div>
+                                    <div class="form-group col-md-12 text-center">
+                                        <h4 class=" form-control-label" for="text-input">¿A quien Deriva?</h4>
+                                    </div> 
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-6">
+                                        <div class="row">
+                                            <div class="form-check text-left col-md-6">
+                                                &nbsp;&nbsp;&nbsp;<input class="form-check-input " type="checkbox" v-model="orient">
+                                                <label class="form-check-label text-left" for="defaultCheck1">Orientadora</label>
+                                            </div>
+                                            <div class="form-check  col-md-6">
+                                                <select class="form-control" v-model="correoOr">
+                                                    <option v-for="orient in arrayOrientadoras" :key="orient.id" :value="orient.email" v-text="orient.nombreusuario"></option>
+                                                </select>
+                                            </div>
+                                        </div>
 
-                    </div>
-                    <div v-if="tipoAccion==3" v-show="errorAlumna" class="form-group row div-error">
-                        <div class="text-center text-error">
-                            <div v-for="error in errorMsgAlumna" :key="error" v-text="error">
+                                        <div class="row">
+                                            <div class="form-check  text-left   col-md-6">
+                                                &nbsp;&nbsp;&nbsp;<input class="form-check-input" type="checkbox" v-model="psicol">
+                                                <label class="form-check-label" for="defaultCheck1">Psicóloga</label>
+                                            </div>
+                                            <div class="form-check  col-md-6">
+                                                <select class="form-control" v-model="correoPs">
+                                                    <option  v-for="psicol in arrayPsicologas" :key="psicol.id" :value="psicol.email" v-text="psicol.nombreusuario"></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-check  text-left   col-md-6">
+                                                &nbsp;&nbsp;&nbsp;<input class="form-check-input" type="checkbox" v-model="visit">
+                                            <label class="form-check-label" for="defaultCheck1">Trab. Social</label>
+                                            </div>                                        
+                                            <div class="form-check  col-md-6">
+                                                <select class="form-control" v-model="correoTr">
+                                                    <option  v-for="trab in arrayTrabajadoras" :key="trab.id" :value="trab.email" v-text="trab.nombreusuario">1</option>
 
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-check  text-left   col-md-6">
+                                                &nbsp;&nbsp;&nbsp;<input class="form-check-input" type="checkbox" v-model="conviv">
+                                                <label class="form-check-label" for="defaultCheck1">Conv. Escolar</label>                               
+                                            </div>                                        
+                                            <div class="form-check  col-md-6">
+                                                <select class="form-control" v-model="correoCo">
+                                                    <option  v-for="conv in arrayConvivencias" :key="conv.id" :value="conv.email" v-text="conv.nombreusuario">1</option>
+
+                                                </select>
+                                            </div>
+
+                                        </div>
+        
+                                    </div>
+
+
+                                    <div class="form-group col-6">
+                                        <div class="row">
+                                                <div class="form-check  text-left   col-md-6">
+                                                    <input class="form-check-input" type="checkbox" v-model="gest">
+                                                    <label class="form-check-label" for="defaultCheck1">Equipo de Gestión</label>
+                                                </div>
+                                            <div class="form-check  col-md-6">
+                                                <select class="form-control" v-model="correoEq">
+                                                    <option  v-for="ges in arrayGestion" :key="ges.id" :value="ges.email" v-text="ges.nombreusuario">1</option>
+
+                                                </select>
+                                            </div>
+                                        </div> 
+
+                                        <div class="row">
+                                            <div class="form-check   text-left  col-md-6">
+                                                <input class="form-check-input" type="checkbox" v-model="terap">
+                                                <label class="form-check-label" for="defaultCheck1">Terap. Ocupacional</label>
+                                            </div>
+                                            <div class="form-check  col-md-6">
+                                                <select class="form-control" v-model="correoTe">
+                                                    <option  v-for="ter in arrayTerapeutas" :key="ter.id" :value="ter.email" v-text="ter.nombreusuario">1</option>
+
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-check  text-left   col-md-6">
+                                                <input class="form-check-input" type="checkbox" v-model="difer">
+                                                <label class="form-check-label" for="defaultCheck1">Educ. Diferencial</label> 
+                                            </div>
+                                            <div class="form-check  col-md-6">
+                                                <select class="form-control" v-model="correoEd">
+                                                    <option  v-for="ed in arrayEducadoras" :key="ed.id" :value="ed.email" v-text="ed.nombreusuario">1</option>
+
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                
+                                </div>
+
+                            </form>
+                            <!--  -->
+
+                        </div>
+                        <div v-if="tipoAccion==3" v-show="errorAlumna" class="form-group row div-error">
+                            <div class="text-center text-error">
+                                <div v-for="error in errorMsgAlumna" :key="error" v-text="error">
+
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="modal-footer modal-lg">
-                        <button type="button" class="btn btn-secondary" @click="cerrarModalderivacion()">Cerrar</button>
+                        <div class="modal-footer modal-lg">
+                            <button type="button" class="btn btn-secondary" @click="cerrarModalderivacion()">Cerrar</button>
 
-                        <button type="button" v-if="tipoAccion==5" @click="derivarAlumna()" class="btn btn-danger">Derivar</button>
-                        <button type="button" v-if="tipoAccion==4" @click="reincorporarAlumna()" class="btn btn-danger">Reincorporar</button>
+                            <button type="button" v-if="tipoAccion==5" @click="derivarAlumna()" class="btn btn-danger">Derivar</button>
+                            <button type="button" v-if="tipoAccion==4" @click="reincorporarAlumna()" class="btn btn-danger">Reincorporar</button>
+                        </div>
                     </div>
+                    <!-- /.modal-content -->
                 </div>
-                <!-- /.modal-content -->
-            </div>
+
             <!-- /.modal-dialog -->
         </div>
-        <!-- Fin del modal Eliminar -->
+        <!-- Fin del modal Derivación -->
 
         
 
@@ -486,7 +486,6 @@
 <script>
 
     let user = document.head.querySelector('meta[name="user"]');
-
    /*  console.log(JSON.parse(user.content)); */
     export default {
 
