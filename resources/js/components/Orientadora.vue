@@ -76,7 +76,6 @@
                                         <button   type="button" @click="abrirModalDerivacion('alumna','actualizar',orientadora)" class="btn btn-Info btn-sm text-center"  title="Ver Detalle">
                                             <i align="center" class="fas fa-eye"></i>
                                         </button>
-            
                                     </td>
                                     <!-- <td>
                                         <button v-if="orientadora.condicion===1" type="button" class="btn btn-Info btn-sm"  title="Ingresar Observación">
@@ -114,6 +113,8 @@
             </div>
             <!-- FIN DE LA PANTALLA PRINCIPAL CON TABLA DE DATOS -->
 
+
+
             <!-- CUANDO SE DE CLICK EN LA ALUMNA MOSTRARÁ LOS DATOS -->
             <div v-else>
                 <div class="form-group row">
@@ -125,17 +126,17 @@
                 <label for=""></label>
                 <label for=""></label>
 
-                <div class="row"> 
-                    <div class="form-group col-6">
+                <div class="row border"> 
+                    <div class="form-group col-6 border-bottom">
                         <h3 class="form-control-label text-center">Nombre Alumna</h3>
                         <h4 class="form-control-label text-center" v-text="nombres+' '+apellidos"></h4> 
                     </div>
-                    <div class="form-group col-6">
+                    <div class="form-group col-6 border-bottom">
                         <h3 class="form-control-label text-center">Curso</h3>
                         <h4 class="form-control-label text-center" v-text="curso+' '+letra"></h4> 
                     </div>
 
-                    <div class="form-group col-12">
+                    <div class="form-group col-12 border-bottom">
                         <label for=""></label>
                         <label for=""></label>
                         <h3 class="form-control-label text-center">Motivo Derivación</h3>
@@ -144,7 +145,7 @@
                         <label for=""></label>
                     </div>
 
-                    <div class="form-group col-12">
+                    <div class="form-group col-12 border-bottom-1">
                         <label for=""></label>
                         <label for=""></label>
                         <h3 class="form-control-label text-center">Seguimiento</h3>
@@ -152,12 +153,14 @@
                         <label for=""></label>
                         <label for=""></label>
                     </div>
+                </div> 
+                <br>
+                <br>
                     <div class="row">
                         <div  class="form-group col-6 text-left">
                             <button type="button" @click="mostrarDetalle()" class="btn btn-primary">Nueva Atención</button>  
                         </div>
-                    </div>
-                </div> 
+                    </div>                
                 <div v-if="cuadro==1">
 
                     <div class=" form-group row border">
@@ -222,6 +225,8 @@
         </div>
             <!-- FINALIZACIÓN MUESTRA DE DATOS -->
 
+            
+
     </main>
 </template>
 
@@ -232,7 +237,9 @@ $("#datetime").datetimepicker({
 </script>
 <script>
     
+
     export default {
+        
         /* props: ['ruta'], */
         data (){
             return {
@@ -305,6 +312,7 @@ $("#datetime").datetimepicker({
             }
         },
         methods:{
+
             mostrarDetalle(){
                 this.cuadro=1;
                // this.listarDetalleOrientadora();

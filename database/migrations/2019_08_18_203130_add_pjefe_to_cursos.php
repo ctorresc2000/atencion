@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddTipoalumnoToAlumnasTable extends Migration
+class AddPjefeToCursos extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class AddTipoalumnoToAlumnasTable extends Migration
      */
     public function up()
     {
-        Schema::table('alumnas', function (Blueprint $table) {
-            $table->integer('tipoalumno')->after('condicion');
+        Schema::table('cursos', function (Blueprint $table) {
+            $table->string('pjefe');
+            $table->string('email');
         });
     }
 
@@ -25,7 +26,7 @@ class AddTipoalumnoToAlumnasTable extends Migration
      */
     public function down()
     {
-        Schema::table('alumnas', function (Blueprint $table) {
+        Schema::table('cursos', function (Blueprint $table) {
             //
         });
     }

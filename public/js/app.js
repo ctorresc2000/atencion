@@ -2245,12 +2245,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+var user = document.head.querySelector('meta[name="user"]');
+/*  console.log(JSON.parse(user.content)); */
 
-/* import DateLanguages from './utils/DateLanguages' */
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       antecedentes: '',
+      Activo: false,
       alumna_id: 0,
       orient: 0,
       psicol: 0,
@@ -2292,7 +2297,7 @@ __webpack_require__.r(__webpack_exports__);
       correoEq: '',
       correoEd: '',
       correoTe: '',
-      fechaDerivacionOrientadora: Date(),
+      fechaDerivacionOrientadora: null,
       modalRetiro: 0,
       modalDerivacion: 0,
       tituloModal: '',
@@ -2754,6 +2759,7 @@ __webpack_require__.r(__webpack_exports__);
                   this.tituloModal = "Derivación de Alumna";
                   this.curso3 = data['curso'];
                   this.opcionAlumna = "";
+                  this.quienDeriva = JSON.parse(user.content).nombreusuario;
                   break;
                 }
             }
@@ -2844,6 +2850,7 @@ __webpack_require__.r(__webpack_exports__);
       this.correoEq = '';
       this.correoEd = '';
       this.correoTe = '';
+      this.quienDeriva = JSON.parse(user.content).nombreusuario;
       this.errorMsgAlumna = [];
     },
     listarCurso: function listarCurso(page) {
@@ -5306,6 +5313,11 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
 //
 //
 //
@@ -50343,29 +50355,10 @@ var render = function() {
                           [_vm._v("Quien Deriva?")]
                         ),
                         _vm._v(" "),
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.quienDeriva,
-                              expression: "quienDeriva"
-                            }
-                          ],
+                        _c("label", {
                           staticClass: "form-control",
-                          attrs: {
-                            type: "text",
-                            placeholder: "Nombre y Apellido"
-                          },
-                          domProps: { value: _vm.quienDeriva },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.quienDeriva = $event.target.value
-                            }
-                          }
+                          attrs: { type: "text" },
+                          domProps: { textContent: _vm._s(_vm.quienDeriva) }
                         })
                       ]),
                       _vm._v(" "),
@@ -54323,8 +54316,8 @@ var render = function() {
             _vm._v(" "),
             _c("label", { attrs: { for: "" } }),
             _vm._v(" "),
-            _c("div", { staticClass: "row" }, [
-              _c("div", { staticClass: "form-group col-6" }, [
+            _c("div", { staticClass: "row border" }, [
+              _c("div", { staticClass: "form-group col-6 border-bottom" }, [
                 _c("h3", { staticClass: "form-control-label text-center" }, [
                   _vm._v("Nombre Alumna")
                 ]),
@@ -54337,7 +54330,7 @@ var render = function() {
                 })
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "form-group col-6" }, [
+              _c("div", { staticClass: "form-group col-6 border-bottom" }, [
                 _c("h3", { staticClass: "form-control-label text-center" }, [
                   _vm._v("Curso")
                 ]),
@@ -54348,7 +54341,7 @@ var render = function() {
                 })
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "form-group col-12" }, [
+              _c("div", { staticClass: "form-group col-12 border-bottom" }, [
                 _c("label", { attrs: { for: "" } }),
                 _vm._v(" "),
                 _c("label", { attrs: { for: "" } }),
@@ -54367,7 +54360,7 @@ var render = function() {
                 _c("label", { attrs: { for: "" } })
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "form-group col-12" }, [
+              _c("div", { staticClass: "form-group col-12 border-bottom-1" }, [
                 _c("label", { attrs: { for: "" } }),
                 _vm._v(" "),
                 _c("label", { attrs: { for: "" } }),
@@ -54384,24 +54377,28 @@ var render = function() {
                 _c("label", { attrs: { for: "" } }),
                 _vm._v(" "),
                 _c("label", { attrs: { for: "" } })
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "row" }, [
-                _c("div", { staticClass: "form-group col-6 text-left" }, [
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-primary",
-                      attrs: { type: "button" },
-                      on: {
-                        click: function($event) {
-                          return _vm.mostrarDetalle()
-                        }
+              ])
+            ]),
+            _vm._v(" "),
+            _c("br"),
+            _vm._v(" "),
+            _c("br"),
+            _vm._v(" "),
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "form-group col-6 text-left" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    attrs: { type: "button" },
+                    on: {
+                      click: function($event) {
+                        return _vm.mostrarDetalle()
                       }
-                    },
-                    [_vm._v("Nueva Atención")]
-                  )
-                ])
+                    }
+                  },
+                  [_vm._v("Nueva Atención")]
+                )
               ])
             ]),
             _vm._v(" "),
@@ -72872,6 +72869,11 @@ module.exports = function(module) {
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* import Vue from 'vue';
+import BootstrapVue from 'bootstrap-vue';
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap-vue/dist/bootstrap-vue.css'; */
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue

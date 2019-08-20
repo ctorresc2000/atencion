@@ -146,6 +146,7 @@
                                 <td>
                                     <div v-if="alumna.condicion==1">
                                         <button  type="button" @click="abrirModalderivacion('alumna','derivar',alumna)" class="btn btn-Info btn-sm" data-toggle="modal" data-target="#modalNuevo" title="Derivar">
+                                        <!-- abrirModalderivacion('alumna','derivar',alumna) -->
                                         <i class="icon-paper-plane"></i>
                                         </button>
                                     </div>
@@ -337,7 +338,7 @@
                             <div class="row">
                                 <div class="form-group col-6">
                                     <h6 class="form-control-label" for="text-input">Quien Deriva?</h6>
-                                    <input type="text" v-model="quienDeriva" class="form-control" placeholder="Nombre y Apellido">
+                                    <label type="text" v-text="quienDeriva" class="form-control"></label>
                                 </div>
                                 <div class="form-group col-6">
                                     <h6 class="form-control-label" for="text-input">Motivo Derivación</h6>
@@ -477,18 +478,23 @@
         </div>
         <!-- Fin del modal Eliminar -->
 
+        
+
     </main>
 </template>
 
 <script>
 
-    /* import DateLanguages from './utils/DateLanguages' */
+    let user = document.head.querySelector('meta[name="user"]');
 
+   /*  console.log(JSON.parse(user.content)); */
     export default {
-            
+
+        
         data (){
             return {
                 antecedentes : '',
+                Activo : false,
                 alumna_id : 0,
                 orient : 0,
                 psicol : 0,
@@ -530,7 +536,7 @@
                 correoEq : '',
                 correoEd : '',
                 correoTe : '',
-                fechaDerivacionOrientadora : Date(),
+                fechaDerivacionOrientadora : null,
                 modalRetiro : 0,
                 modalDerivacion : 0,
                 tituloModal : '',
@@ -555,6 +561,7 @@
                 buscar : ''
             }
         },
+
         computed: {
             isActived: function(){
                 return this.pagination.current_page;
@@ -1038,6 +1045,7 @@
                                 this.tituloModal = "Derivación de Alumna";
                                 this.curso3 = data['curso'];
                                 this.opcionAlumna = "";
+                                this.quienDeriva=JSON.parse(user.content).nombreusuario;
  
                                 break;
 
@@ -1133,6 +1141,7 @@
                 this.correoEq = '';
                 this.correoEd = '';
                 this.correoTe = '';
+                this.quienDeriva=JSON.parse(user.content).nombreusuario;
                 this.errorMsgAlumna=[];
             },
 

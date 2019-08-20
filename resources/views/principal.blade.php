@@ -9,6 +9,7 @@
     <meta name="author" content="ltsm.cl">
     <meta name="keyword" content="Sistema Programa Atención Individual">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="user" content="{{ Auth::user() }}">
     <link rel="shortcut icon" href="../public/img/favicon.png">
     <title>Programa Atención Individual</title>
     <!-- Icons -->

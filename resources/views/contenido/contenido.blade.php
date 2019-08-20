@@ -131,7 +131,7 @@
                         <h1 class="text-center">Carga Masiva de Alumnas</h1><br>
                         <div class="card bg-ligth mt-3">
                             <div class="card-header">
-                                Subir Archivos
+                                <h4>Subir Archivos</h4><br>
                             </div>
                             <div class="card-body">
                                 <form action="{{ route('subir') }}" method="post" enctype="multipart/form-data">
