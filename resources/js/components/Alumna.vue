@@ -315,7 +315,7 @@
 
 
         <!-- Inicio del modal Derivación -->
-        <div class="modal fade" tabindex="-1" :class="{'mostrar' : modalDerivacion}" role="dialog" aria-labelledby="myModalLabel"  style="overflow-y: scroll;display: none;" aria-hidden="true"><!-- style="" -->
+        <div class="modal fade" tabindex="-1" :class="{'mostrar' : modalDerivacion}" role="dialog" aria-labelledby="myModalLabel"  style="overflow-y: scroll;display: none;overflow-x: scroll;" aria-hidden="true"><!-- style="" -->
                 <div class="modal-dialog modal-success modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">

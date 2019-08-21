@@ -3681,6 +3681,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3688,11 +3697,13 @@ __webpack_require__.r(__webpack_exports__);
       curso: '',
       arrayCurso: [],
       modal: 0,
+      pjefe: '',
       tituloModal: '',
       tipoAccion: 0,
       errorAlumna: 0,
       modalRetiro: 0,
       opcionAlumna: '',
+      arrayProfes: [],
       errorMsgAlumna: [],
       pagination: {
         'total': 0,
@@ -3762,7 +3773,8 @@ __webpack_require__.r(__webpack_exports__);
 
       var me = this;
       axios.post('/curso/registrar', {
-        'curso': this.curso
+        'curso': this.curso,
+        'pjefe': this.pjefe
       }).then(function (response) {
         me.cerrarModal();
         me.listarCurso(1);
@@ -3778,7 +3790,8 @@ __webpack_require__.r(__webpack_exports__);
       var me = this;
       axios.put('/curso/actualizar', {
         'id': this.curso_id,
-        'curso': this.curso
+        'curso': this.curso,
+        'pjefe': this.pjefe
       }).then(function (response) {
         me.cerrarModal();
         me.listarCurso(1);
@@ -3786,24 +3799,24 @@ __webpack_require__.r(__webpack_exports__);
         console.log(error);
       });
     },
+    cargarProfesores: function cargarProfesores(page) {
+      var me = this;
+      url = '/curso/sacarProfe?page=' + page;
+      axios.get(url).then(function (response) {
+        var respuesta = response.data;
+        me.arrayProfes = respuesta.profes.data;
+        me.pagination = respuesta.pagination;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
     validarAlumna: function validarAlumna() {
       this.errorAlumna = 0;
       this.errorMsgAlumna = [];
-      if (!this.curso) this.errorMsgAlumna.push("Nombre usuario no pueden estar en Blanco");
+      if (!this.curso) this.errorMsgAlumna.push("Curso no puede estar en Blanco");
       if (this.errorMsgAlumna.length) this.errorAlumna = 1;
       return this.errorAlumna;
     },
-
-    /*             validarAlumnaRetirada(){
-                    this.errorAlumna=0;
-                    this.errorMsgAlumna=[];
-    
-                    if (!this.fecharetiro) this.errorMsgAlumna.push("Debe Ingresar la fecha de Retiro");
-    
-                    if(this.errorMsgAlumna.length) this.errorAlumna = 1;
-    
-                    return this.errorAlumna;
-                }, */
     cerrarModal: function cerrarModal() {
       this.modal = 0, this.tituloModal = '', this.rut = '';
       this.digito = '';
@@ -3964,6 +3977,7 @@ __webpack_require__.r(__webpack_exports__);
                   this.tipoAccion = 2;
                   this.curso_id = data['id'];
                   this.curso = data['curso'];
+                  this.pjefe = data['pjefe'];
                   break;
                 }
 
@@ -3982,6 +3996,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     this.listarCurso(1);
+    this.cargarProfesores(1);
   }
 });
 
@@ -79028,7 +79043,11 @@ var render = function() {
       {
         staticClass: "modal fade",
         class: { mostrar: _vm.modalDerivacion },
-        staticStyle: { "overflow-y": "scroll", display: "none" },
+        staticStyle: {
+          "overflow-y": "scroll",
+          display: "none",
+          "overflow-x": "scroll"
+        },
         attrs: {
           tabindex: "-1",
           role: "dialog",
@@ -80960,10 +80979,12 @@ var render = function() {
                       2
                     ),
                     _vm._v(" "),
-                    _c("td", { domProps: { textContent: _vm._s(cursos.id) } }),
-                    _vm._v(" "),
                     _c("td", {
                       domProps: { textContent: _vm._s(cursos.curso) }
+                    }),
+                    _vm._v(" "),
+                    _c("td", {
+                      domProps: { textContent: _vm._s(cursos.pjefe) }
                     }),
                     _vm._v(" "),
                     _c("td", [
@@ -81147,7 +81168,7 @@ var render = function() {
                         [_vm._v("Curso")]
                       ),
                       _vm._v(" "),
-                      _c("div", { staticClass: "col-md-4" }, [
+                      _c("div", { staticClass: "form-group col-md-4" }, [
                         _c("input", {
                           directives: [
                             {
@@ -81169,6 +81190,66 @@ var render = function() {
                             }
                           }
                         })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group row" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-md-3 form-control-label",
+                          attrs: { for: "text-input" }
+                        },
+                        [_vm._v("Profesor Jefe")]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-group col-md-4" }, [
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.pjefe,
+                                expression: "pjefe"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: { title: "Seleccione Profesor Jefe." },
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.pjefe = $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              }
+                            }
+                          },
+                          [
+                            _c("option", { attrs: { value: "0" } }, [
+                              _vm._v("Profesor")
+                            ]),
+                            _vm._v(" "),
+                            _vm._l(_vm.arrayProfes, function(profes) {
+                              return _c("option", {
+                                key: profes.id,
+                                domProps: {
+                                  value: profes.nombreusuario,
+                                  textContent: _vm._s(profes.nombreusuario)
+                                }
+                              })
+                            })
+                          ],
+                          2
+                        )
                       ])
                     ]),
                     _vm._v(" "),
@@ -81414,13 +81495,13 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th", { attrs: { width: "15%" } }, [_vm._v("Opciones")]),
+        _c("th", { attrs: { width: "10%" } }, [_vm._v("Opciones")]),
         _vm._v(" "),
-        _c("th", { attrs: { width: "5%" } }, [_vm._v("Id")]),
+        _c("th", { attrs: { width: "10%" } }, [_vm._v("Curso")]),
         _vm._v(" "),
-        _c("th", { attrs: { width: "20%" } }, [_vm._v("Curso")]),
+        _c("th", { attrs: { width: "40%" } }, [_vm._v("Profesor Jefe")]),
         _vm._v(" "),
-        _c("th", { attrs: { width: "15%" } }, [_vm._v("Estado")])
+        _c("th", { attrs: { width: "5%" } }, [_vm._v("Estado")])
       ])
     ])
   }

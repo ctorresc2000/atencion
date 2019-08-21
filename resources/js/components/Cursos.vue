@@ -17,10 +17,10 @@
                     <table class="table table-bordered table-striped table-sm">
                         <thead >
                             <tr >
-                                <th width="15%">Opciones</th>
-                                <th width="5%">Id</th>
-                                <th width="20%">Curso</th>
-                                <th width="15%">Estado</th>
+                                <th width="10%">Opciones</th>
+                                <th width="10%">Curso</th>
+                                <th width="40%">Profesor Jefe</th>
+                                <th width="5%">Estado</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -41,8 +41,8 @@
                                     </template>
                                     
                                 </td>
-                                <td v-text="cursos.id"></td>
                                 <td v-text="cursos.curso"></td>
+                                <td v-text="cursos.pjefe"></td>
                                 <td>
                                     <span v-if="cursos.condicion===1" class="badge badge-success">Activo</span>
                                     <span v-if="cursos.condicion===0" class="badge badge-danger">Inactivo</span>
@@ -85,9 +85,18 @@
 
                             <div class="form-group row">
                                 <label class="col-md-3 form-control-label" for="text-input">Curso</label>
-                                <div class="col-md-4">
+                                <div class="form-group col-md-4">
                                     <input type="text" v-model="curso" class="form-control" placeholder="Ej. 1° A">
                                 </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-3 form-control-label" for="text-input">Profesor Jefe</label>
+                                <div class="form-group col-md-4">
+                                    <select class="form-control" v-model="pjefe" title="Seleccione Profesor Jefe.">
+                                        <option value="0">Profesor</option>
+                                        <option v-for="profes in arrayProfes" :key="profes.id" :value="profes.nombreusuario" v-text="profes.nombreusuario"></option>
+                                    </select>
+                                </div>    
                             </div>
 
                             <div v-show="errorAlumna" class="form-group row div-error">
@@ -172,12 +181,13 @@
                 curso: '',
                 arrayCurso : [],
                 modal : 0,
+                pjefe : '',
                 tituloModal: '',
                 tipoAccion : 0,
                 errorAlumna : 0,
                 modalRetiro : 0,
                 opcionAlumna : '',
-
+                arrayProfes : [],
                 errorMsgAlumna : [],
                 pagination : {
                     'total' : 0,
@@ -248,6 +258,7 @@
                 let me  =this;
                 axios.post( '/curso/registrar',{
                     'curso' : this.curso,
+                    'pjefe' : this.pjefe,
                 }).then(function (response){
                     me.cerrarModal();
                     me.listarCurso(1);
@@ -263,6 +274,7 @@
                 axios.put( '/curso/actualizar',{
                     'id' : this.curso_id,
                     'curso' : this.curso,
+                    'pjefe' : this.pjefe,
                 }).then(function (response){
                     me.cerrarModal();
                     me.listarCurso(1);
@@ -270,26 +282,28 @@
                     console.log(error);
                 });
             },
+            cargarProfesores(page){
+                let me=this;
+                url =  '/curso/sacarProfe?page=' + page;
+                 axios.get(url).then(function (response) {
+                     var respuesta = response.data;
+                     me.arrayProfes = respuesta.profes.data;
+                     me.pagination = respuesta.pagination;
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            },
             validarAlumna(){
                 this.errorAlumna=0;
                 this.errorMsgAlumna=[];
 
-                if (!this.curso) this.errorMsgAlumna.push("Nombre usuario no pueden estar en Blanco");
+                if (!this.curso) this.errorMsgAlumna.push("Curso no puede estar en Blanco");
                
                if(this.errorMsgAlumna.length) this.errorAlumna = 1;
 
                 return this.errorAlumna;
             },
-/*             validarAlumnaRetirada(){
-                this.errorAlumna=0;
-                this.errorMsgAlumna=[];
-
-                if (!this.fecharetiro) this.errorMsgAlumna.push("Debe Ingresar la fecha de Retiro");
-
-                if(this.errorMsgAlumna.length) this.errorAlumna = 1;
-
-                return this.errorAlumna;
-            }, */
             cerrarModal(){
                 this.modal = 0,
                 this.tituloModal = '',
@@ -459,6 +473,7 @@
                                 this.tipoAccion = 2;
                                 this.curso_id = data['id'];
                                 this.curso = data['curso'];
+                                this.pjefe = data['pjefe'];
                                 break;
                            }
                            case 'password':
@@ -476,6 +491,7 @@
         },
         mounted() {
             this.listarCurso(1);
+            this.cargarProfesores(1);
         }
     }
 </script>

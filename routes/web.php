@@ -162,13 +162,14 @@ Route::group(['middleware'=>['auth']], function() {
         Route::put('/user/desactivar', 'UserController@desactivar');
         Route::put('/user/CambiarPassword', 'UserController@asignarPassword');
         Route::get('/user/listar', 'UserController@listar');
-
+        
         Route::get('/curso', 'CursoController@index');
         Route::post('/curso/registrar', 'CursoController@store');
         Route::put('/curso/actualizar', 'CursoController@update');
         Route::put('/curso/desactivar', 'CursoController@desactivar');
         Route::put('/curso/activar', 'CursoController@activar'); 
         Route::get('/curso/cursoactivo', 'CursoController@cursoactivo');
+        Route::get('/curso/sacarProfe', 'CursoController@sacarProfe');
 
         Route::post('/contactar', 'EmailController@contact')->name('contact');
     });
