@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Curso;
+use App\User;
 
 class CursoController extends Controller
 {
@@ -32,6 +33,7 @@ class CursoController extends Controller
 
         $curso = new Curso();
         $curso->curso=$request->curso;
+        $curso->pjefe=$request->pjefe;
         $curso->condicion='1';
         $curso->save();
     }
@@ -42,6 +44,7 @@ class CursoController extends Controller
         
         $curso = Curso::findOrFail($request->id);
         $curso->curso=$request->curso;
+        $curso->pjefe=$request->pjefe;
         $curso->save();
     }
 
@@ -79,6 +82,26 @@ class CursoController extends Controller
                 'to' => $cursos->lastItem(),
             ],
             'cursos' =>$cursos
+        ];
+    }
+
+
+    public function sacarProfe(request $request)
+    {
+        if(!$request->ajax()) return redirect('/');
+
+        $profes = User::OrderBy('nombreusuario','asc')->where('idrol','1')->paginate(5000);
+
+        return [
+            'pagination' => [
+                'total' => $profes->total(),
+                'current_page' => $profes->currentPage(),
+                'per_page' => $profes->perPage(),
+                'last_page' => $profes->lastpage(),
+                'from' => $profes->firstItem(),
+                'to' => $profes->lastItem(),
+            ],
+            'profes' =>$profes
         ];
     }
 }

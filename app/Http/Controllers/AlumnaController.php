@@ -19,7 +19,7 @@ use Symfony\Component\Console\Logger\ConsoleLogger;
 
 class AlumnaController extends Controller
 {
-    /**
+    /***
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
