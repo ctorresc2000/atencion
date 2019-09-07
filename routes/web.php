@@ -79,6 +79,10 @@ Route::group(['middleware'=>['auth']], function() {
 
         Route::post('alumna/import', 'AlumnaController@importExcel')->name('subir');
 
+        Route::put('/alumna/prioritario', 'AlumnaController@prioritario');
+        Route::put('/alumna/preferente', 'AlumnaController@preferente');
+        Route::put('/alumna/normal', 'AlumnaController@normal');
+
         Route::get('/orientadora', 'OrientadoraController@index');
         Route::post('/orientadora/registrar', 'OrientadoraController@store');
         Route::put('/orientadora/actualizar', 'OrientadoraController@update');

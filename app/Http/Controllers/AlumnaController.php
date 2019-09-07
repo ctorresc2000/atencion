@@ -126,12 +126,38 @@ class AlumnaController extends Controller
     {
         if(!$request->ajax()) return redirect('/');
 
-        
-
         $alumna = Alumna::findOrFail($request->id);
         $alumna->condicion='1';
         $alumna->save();
     }
+
+    public function normal(Request $request)
+    {
+        if(!$request->ajax()) return redirect('/');
+
+        $alumna = Alumna::findOrFail($request->id);
+        $alumna->tipoalumno='0';
+        $alumna->save();
+    }
+
+    public function prioritario(Request $request)
+    {
+        if(!$request->ajax()) return redirect('/');
+
+        $alumna = Alumna::findOrFail($request->id);
+        $alumna->tipoalumno='1';
+        $alumna->save();
+    }
+
+    public function preferente(Request $request)
+    {
+        if(!$request->ajax()) return redirect('/');
+
+        $alumna = Alumna::findOrFail($request->id);
+        $alumna->tipoalumno='2';
+        $alumna->save();
+    }
+
 
     /**
      * Update the specified resource in storage.

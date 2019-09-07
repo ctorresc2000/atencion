@@ -24,60 +24,92 @@
                                     <option value="rut">Rut</option>
                                     <option value="apellidos">Apellido</option>
                                     <option value="nombres">Nombre</option>
-                                    <option value="curso">Curso</option>&nbsp;
-                                </select>
-                                <div class="col-md-2">
+                                    <option value="curso">Curso</option>
+                                    <option value="tipoalumno">Tipo Alumno</option>
+                                </select>&nbsp;
+                                <template v-if="criterio=='curso'" class="col-md-2">
                                     <select class="form-control" v-model="buscar" title="Debe seleccionar la opción curso..">
                                         <option value="0">Curso</option>
                                         <option v-for="cursos in arrayCurso" :key="cursos.id" :value="cursos.curso" v-text="cursos.curso"></option>
-                                    </select>
-                                </div>
-                                <input type="text" v-model="buscar" @keyup.enter="listarAlumna(1,buscar,criterio)" class="form-control" placeholder="Texto a buscar (Rut sin digito)">&nbsp;&nbsp;                              
+                                    </select>&nbsp;
+                                </template>
+                                <template v-if="criterio=='tipoalumno'" class="col-md-2">
+                                    <select class="form-control" v-model="buscar" title="Debe seleccionar la opción curso..">
+                                        <option value="0">Normal</option>
+                                        <option value="1">Prioritario</option>
+                                        <option value="2">Preferente</option>
+                                    </select>&nbsp;
+                                </template>
+                                <template v-if="criterio=='rut' || criterio=='nombres' || criterio=='apellidos'">
+                                    <div class="form-control">
+                                       <input type="text" v-model="buscar" @keyup.enter="listarAlumna(1,buscar,criterio)" class="form-control" placeholder="Texto a buscar (Rut sin digito)">&nbsp;&nbsp; 
+                                    </div>
+                                </template>
+                                                           
                                 <button type="submit" @click="listarAlumna(1,buscar,criterio)" class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>&nbsp;&nbsp;
                                 <button type="submit" @click="limpiarBusqueda()" class="btn btn-success"><i class="fas fa-broom"></i> Limpiar Búsqueda</button>
                             </div>
                         </div>
                     </div>
+                    <!-- <div class="text-uppercase text-bold">id selected: {{selected}}</div> -->
+                    <div>
+                        <label for=""><strong>Tipo Alumno :</strong></label>&nbsp;
+                            <label for="">Normal&nbsp;<span class="badge badge-warning"><i class=" far fa-smile-wink"></i></span></label>&nbsp;
+                            <label for="">Prioritario&nbsp;<span class="badge badge-primary"><i class="far fa-smile-wink"></i></span></label>&nbsp;
+                            <label for="">Preferente&nbsp;<span class="badge badge-success"><i class="far fa-smile-wink"></i></span></label>
+                        
+                    </div>
                     <table align="center" border="1" class="table table-bordered table-striped table-sm table-responsive">
                         <thead >
-                            <tr >
-                                <th width="80px">Opciones</th>
-                                <th>Rut</th>
-                                <th>Curso</th>
-                                <th>Alumna</th>
-                                <th title="Orientadora">1</th>
-                                <th title="Psicóloga">2</th>
-                                <th title="Trabajadora Social">3</th>
-                                <th title="Convivencia Escolar">4</th>
-                                <th title="Equipo de Gestión">5</th>
-                                <th title="Terapeuta Ocupacional">6</th>
-                                <th title="Educadora Diferencial">7</th>
-                                <th title="Tipo Alumna/o">Prioritario</th>
-                                <th>Derivar</th>
-                                <th>Estado</th>
+                            <tr>
+                                <th width="2%">
+                                    <label class="form-checkbox">
+                                        <input type="checkbox" v-model="selectAll" @click="select()">
+                                        <i class="form-icon"></i>
+                                    </label>
+                                </th>
+                                <th width="10%" class="align-middle">Opciones</th>
+                                <th width="10%" class="align-middle">Rut</th>
+                                <th width="3%" class="align-middle">Curso</th>
+                                <th width="30%" class="align-middle">Alumna</th>
+                                <th width="3%" class="align-middle" title="Orientadora">1</th>
+                                <th width="3%" class="align-middle" title="Psicóloga">2</th>
+                                <th width="3%" class="align-middle" title="Trabajadora Social">3</th>
+                                <th width="3%" class="align-middle" title="Convivencia Escolar">4</th>
+                                <th width="3%" class="align-middle" title="Equipo de Gestión">5</th>
+                                <th width="3%" class="align-middle" title="Terapeuta Ocupacional">6</th>
+                                <th width="3%" class="align-middle" title="Educadora Diferencial">7</th>
+                                <th width="3%" class="align-middle" title="Tipo Alumna/o">Tipo Alumno</th>
+                                <th width="10%" class="align-middle">Derivar</th>
+                                <th width="15%" class="align-middle">Estado</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr v-for="alumna in arrayAlumna" :key="alumna.id">
-                                <td>
+                                <td width="2%" class="align-middle">
+                                    <label class="form-checkbox">
+                                        <input type="checkbox" :value="alumna.id" v-model="selected">
+                                        <i class="form-icon"></i>
+                                    </label>
+                                </td>
+                                <td>                                    
                                     <button type="button" @click="abrirModal('alumna','actualizar',alumna)" class="btn btn-warning btn-sm" title="Editar">
                                         <i class="icon-pencil"></i>
                                     </button> &nbsp;
-                                    <div v-if="alumna.condicion">
+                                    <template v-if="alumna.condicion">
                                         <button type="button" @click="abrirModalRetiro('alumna','retirar',alumna)" class="btn btn-danger btn-sm" title="Retirar">
-                                        <i class="icon-trash"></i>
-                                    </button>
-                                    </div>
-                                    <div v-else>
+                                            <i class="icon-trash"></i>
+                                        </button>
+                                    </template>
+                                    <template v-else>
                                         <button type="button" @click="abrirModalRetiro('alumna','reincorporar',alumna)"  class="btn btn-info btn-sm" title="Reincorporar">
-                                        <i class="icon-check"></i>
-                                    </button>
-                                    </div>
-                                    
+                                            <i class="icon-check"></i>
+                                         </button>
+                                    </template>                                    
                                 </td>
                                 <td v-text="alumna.rut+'-'+alumna.digito"></td>
                                 <td v-text="alumna.curso"></td>
-                                <td v-text="alumna.apellidos +' '+ alumna.nombres"></td>
+                                <td class="text-capitalize" v-text="alumna.apellidos +' '+ alumna.nombres"></td>
                                 
                                 <td title="Orientadora">
                                     <div v-if="alumna.d_or==1" class="badge badge-success">
@@ -136,11 +168,14 @@
                                     </div>
                                 </td>
                                 <td align="center">
-                                    <div v-if="alumna.tipoalumno==0" class="badge badge-danger">
-                                        <span><i class="fas fa-times"></i></span>
+                                    <div v-if="alumna.tipoalumno==0" class="badge badge-warning">
+                                        <span title="Normal"><i class=" far fa-smile-wink"></i></span>
                                     </div>
-                                    <div v-else> class="badge badge-danger">
-                                        <span><i class="fas fa-check"></i></span>
+                                    <div v-if="alumna.tipoalumno==1" class="badge badge-primary">
+                                        <span title="Prioritario"><i class="far fa-smile-wink"></i></span>
+                                    </div>
+                                    <div v-if="alumna.tipoalumno==2" class="badge badge-success">
+                                        <span title="Preferente"><i class="far fa-smile-wink"></i></span>
                                     </div>
                                 </td>
                                 <td>
@@ -167,6 +202,14 @@
 
                         </tbody>
                     </table>
+                    <template v-if="selected.length>0">
+                        <div class="row offset-md-8 col-md-4 text-rigth">
+                            <button type="button" class="btn btn-sm btn-primary" @click="guardarPrioritarios()">Prioritario</button>&nbsp;
+                            <button type="button" class="btn btn-sm btn-success" @click="guardarPreferente()">Preferente</button>&nbsp;
+                            <button type="button" class="btn btn-sm btn-warning" @click="guardarNormal()">Normal</button>
+                        </div> 
+                    </template>
+   
                     <nav>
                         <ul class="pagination">
                             <li class="page-item" v-if="pagination.current_page > 1">
@@ -537,6 +580,7 @@
                 correoTe : '',
                 fechaDerivacionOrientadora : null,
                 modalRetiro : 0,
+                modalTipoAlumno : 0,
                 modalDerivacion : 0,
                 tituloModal : '',
                 tipoAccion : 0,
@@ -547,6 +591,9 @@
                 quienDeriva : '',
                 motivoDerivacion : '',
                 cursoAlumna: '',
+                alumnaPasar : '',
+                selected: [],
+		        selectAll: false,
                 pagination : {
                     'total' : 0,
                     'current_page' : 0,
@@ -675,6 +722,88 @@
                     }).catch(function(error){
                         console.log(error);
                     });
+            },
+
+            select() {
+                this.selected = [];
+                if (!this.selectAll) {
+                    for (let alumna in this.arrayAlumna) {
+                        this.selected.push(this.arrayAlumna[alumna].id);
+                        }
+                    }
+            },
+            deSeleccionar(){
+                this.selected=[];
+            },
+            cambio(){
+                Swal.fire({
+                    position: 'center',
+                    type: 'success',
+                    title: 'Cambio Realizado',
+                    showConfirmButton: false,
+                    timer: 1000
+                })
+            },
+            
+            guardarPrioritarios(){
+                let me = this;
+                for (let index = 0; index < this.selected.length; index++) {
+                    const alumnaPasar = this.selected[index];
+                    axios.put( '/alumna/prioritario',{
+                       'id' : alumnaPasar,
+                       
+                    }).then(function (response){                      
+                        me.deSeleccionar();
+                        me.listarAlumna(1,'','rut');
+                    }).catch(function(error){
+                        console.log(error);
+                        console.log('derivo');
+
+                    });
+                    //console.log(alumnaPasar);
+                }
+                me.cambio();
+                
+            },
+            guardarPreferente(){
+                let me = this;
+                for (let index = 0; index < this.selected.length; index++) {
+                    const alumnaPasar = this.selected[index];
+                    axios.put( '/alumna/preferente',{
+                       'id' : alumnaPasar,
+                       
+                    }).then(function (response){
+                        //me.derivacionExitosa();
+                        me.deSeleccionar();
+                        me.listarAlumna(1,'','rut');
+                    }).catch(function(error){
+                        console.log(error);
+                        console.log('derivo');
+
+                    });
+                    //console.log(alumnaPasar);
+                }
+                me.cambio();
+            },
+            guardarNormal(){
+                let me = this;
+                for (let index = 0; index < this.selected.length; index++) {
+                    const alumnaPasar = this.selected[index];
+                    axios.put( '/alumna/normal',{
+                       'id' : alumnaPasar,
+                       
+                    }).then(function (response){
+                        //me.derivacionExitosa();
+                        me.deSeleccionar();
+                        me.listarAlumna(1,'','rut');
+                    }).catch(function(error){
+                        console.log(error);
+                        console.log('derivo');
+
+                    });
+                    //console.log(alumnaPasar);
+                }
+                me.cambio();
             },
 
             derivarAlumna(){ 
@@ -1029,6 +1158,13 @@
                     }
                 }
             },
+
+            abrirModalCambio(){
+
+                this.modalTipoAlumno = 1;
+
+            },
+
             abrirModalderivacion(modelo, accion, data=[]){
                 switch(modelo){
                     case "alumna":
@@ -1062,6 +1198,7 @@
             },
             cerrarModalRetiro(){
                 this.modalRetiro = 0,
+                this.modalTipoAlumno = 0,
                 this.tituloModal = '',
                 this.rut = '';
                 this.digito = '';
