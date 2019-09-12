@@ -41,6 +41,7 @@
                                     <th width="35%">Alumna</th>
                                     <th width="15%">Derivado Por</th>
                                     <th width="39%">Motivo Derivación</th>
+                                    <th width="15%">Fecha Derivación</th>
                                     <th width="3%">Ant.</th>
                                     <!-- <th>Detalle</th>
                                     <th>Estado</th> -->
@@ -66,15 +67,15 @@
                                     </td> -->
                                     <!-- <td v-text="orientadora.id"></td> -->
                                    <!--  <td v-text="orientadora.id" ></td> -->
-                                    <td v-text="orientadora.curso+' '+orientadora.letra"></td>
+                                    <td v-text="orientadora.curso"></td>
                                     <td v-text="orientadora.apellidos +' '+ orientadora.nombres"></td>
                                     <td v-text="orientadora.derivadopor"></td>
                                     <td v-text="orientadora.motivo"></td>
+                                    <td v-text="orientadora.fechaderivacion"></td>
                                     <td>
                                         <button   type="button" @click="abrirModalDerivacion('alumna','actualizar',orientadora)" class="btn btn-Info btn-sm text-center"  title="Ver Detalle">
                                             <i align="center" class="fas fa-eye"></i>
                                         </button>
-            
                                     </td>
                                     <!-- <td>
                                         <button v-if="orientadora.condicion===1" type="button" class="btn btn-Info btn-sm"  title="Ingresar Observación">
@@ -112,6 +113,8 @@
             </div>
             <!-- FIN DE LA PANTALLA PRINCIPAL CON TABLA DE DATOS -->
 
+
+
             <!-- CUANDO SE DE CLICK EN LA ALUMNA MOSTRARÁ LOS DATOS -->
             <div v-else>
                 <div class="form-group row">
@@ -123,17 +126,26 @@
                 <label for=""></label>
                 <label for=""></label>
 
-                <div class="row"> 
-                    <div class="form-group col-6">
+                <div class="row border"> 
+                    <div class="form-group col-6 border-bottom">
                         <h3 class="form-control-label text-center">Nombre Alumna</h3>
                         <h4 class="form-control-label text-center" v-text="nombres+' '+apellidos"></h4> 
                     </div>
-                    <div class="form-group col-6">
+                    <div class="form-group col-6 border-bottom">
                         <h3 class="form-control-label text-center">Curso</h3>
                         <h4 class="form-control-label text-center" v-text="curso+' '+letra"></h4> 
                     </div>
 
-                    <div class="form-group col-12">
+                    <div class="form-group col-12 border-bottom">
+                        <label for=""></label>
+                        <label for=""></label>
+                        <h3 class="form-control-label text-center">Motivo Derivación</h3>
+                        <h6 class="form-control-label text-justify" v-text="motivo"></h6> 
+                        <label for=""></label>
+                        <label for=""></label>
+                    </div>
+
+                    <div class="form-group col-12 border-bottom-1">
                         <label for=""></label>
                         <label for=""></label>
                         <h3 class="form-control-label text-center">Seguimiento</h3>
@@ -141,12 +153,14 @@
                         <label for=""></label>
                         <label for=""></label>
                     </div>
+                </div> 
+                <br>
+                <br>
                     <div class="row">
                         <div  class="form-group col-6 text-left">
                             <button type="button" @click="mostrarDetalle()" class="btn btn-primary">Nueva Atención</button>  
                         </div>
-                    </div>
-                </div> 
+                    </div>                
                 <div v-if="cuadro==1">
 
                     <div class=" form-group row border">
@@ -211,6 +225,8 @@
         </div>
             <!-- FINALIZACIÓN MUESTRA DE DATOS -->
 
+            
+
     </main>
 </template>
 
@@ -221,7 +237,9 @@ $("#datetime").datetimepicker({
 </script>
 <script>
     
+
     export default {
+        
         /* props: ['ruta'], */
         data (){
             return {
@@ -294,6 +312,7 @@ $("#datetime").datetimepicker({
             }
         },
         methods:{
+
             mostrarDetalle(){
                 this.cuadro=1;
                // this.listarDetalleOrientadora();
@@ -555,7 +574,7 @@ $("#datetime").datetimepicker({
                                 this.nombres = data['nombres'];
                                 this.apellidos = data['apellidos'];
                                 this.curso = data['curso'];
-                                this.letra = data['letra'];
+                                this.motivo = data['motivo'];
                                 this.antecedentes = data['antecedentes'];
                                 this.listarDetalleOrientadora();
                                 break;

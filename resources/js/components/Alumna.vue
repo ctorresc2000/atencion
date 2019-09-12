@@ -1,5 +1,7 @@
 <template>
+
     <main class="main">
+        <!-- <vuejs-datepicker :language="es"></vuejs-datepicker> -->
         <!-- Breadcrumb -->
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/">Escritorio</a></li>
@@ -22,60 +24,92 @@
                                     <option value="rut">Rut</option>
                                     <option value="apellidos">Apellido</option>
                                     <option value="nombres">Nombre</option>
-                                    <option value="curso">Curso</option>&nbsp;
-                                </select>
-                                <div class="col-md-2">
-                                    <select class="form-control" v-model="buscar">
+                                    <option value="curso">Curso</option>
+                                    <option value="tipoalumno">Tipo Alumno</option>
+                                </select>&nbsp;
+                                <template v-if="criterio=='curso'" class="col-md-2">
+                                    <select class="form-control" v-model="buscar" title="Debe seleccionar la opción curso..">
                                         <option value="0">Curso</option>
                                         <option v-for="cursos in arrayCurso" :key="cursos.id" :value="cursos.curso" v-text="cursos.curso"></option>
-                                    </select>
-                                </div>
-                                <input type="text" v-model="buscar" @keyup.enter="listarAlumna(1,buscar,criterio)" class="form-control" placeholder="Texto a buscar (Rut sin digito)">&nbsp;&nbsp;                              
+                                    </select>&nbsp;
+                                </template>
+                                <template v-if="criterio=='tipoalumno'" class="col-md-2">
+                                    <select class="form-control" v-model="buscar" title="Debe seleccionar la opción curso..">
+                                        <option value="0">Normal</option>
+                                        <option value="1">Prioritario</option>
+                                        <option value="2">Preferente</option>
+                                    </select>&nbsp;
+                                </template>
+                                <template v-if="criterio=='rut' || criterio=='nombres' || criterio=='apellidos'">
+                                    <div class="form-control">
+                                       <input type="text" v-model="buscar" @keyup.enter="listarAlumna(1,buscar,criterio)" class="form-control" placeholder="Texto a buscar (Rut sin digito)">&nbsp;&nbsp; 
+                                    </div>
+                                </template>
+                                                           
                                 <button type="submit" @click="listarAlumna(1,buscar,criterio)" class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>&nbsp;&nbsp;
                                 <button type="submit" @click="limpiarBusqueda()" class="btn btn-success"><i class="fas fa-broom"></i> Limpiar Búsqueda</button>
                             </div>
                         </div>
                     </div>
+                    <!-- <div class="text-uppercase text-bold">id selected: {{selected}}</div> -->
+                    <div>
+                        <label for=""><strong>Tipo Alumno :</strong></label>&nbsp;
+                            <label for="">Normal&nbsp;<span class="badge badge-warning"><i class=" far fa-smile-wink"></i></span></label>&nbsp;
+                            <label for="">Prioritario&nbsp;<span class="badge badge-primary"><i class="far fa-smile-wink"></i></span></label>&nbsp;
+                            <label for="">Preferente&nbsp;<span class="badge badge-success"><i class="far fa-smile-wink"></i></span></label>
+                        
+                    </div>
                     <table align="center" border="1" class="table table-bordered table-striped table-sm table-responsive">
                         <thead >
-                            <tr >
-                                <th width="50px">Opciones</th>
-                                <th>Rut</th>
-                                <th>Curso</th>
-                                <th>Alumna</th>
-                                <th title="Orientadora">1</th>
-                                <th title="Psicóloga">2</th>
-                                <th title="Visitadora Social">3</th>
-                                <th title="Convivencia Escolar">4</th>
-                                <th title="Equipo de Gestión">5</th>
-                                <th title="Terapeuta Ocupacional">6</th>
-                                <th title="Educadora Diferencial">7</th>
-                                <th title="Tipo Alumna/o">Prioritario</th>
-                                <th>Derivar</th>
-                                <th>Estado</th>
+                            <tr>
+                                <th width="2%">
+                                    <label class="form-checkbox">
+                                        <input type="checkbox" v-model="selectAll" @click="select()">
+                                        <i class="form-icon"></i>
+                                    </label>
+                                </th>
+                                <th width="10%" class="align-middle">Opciones</th>
+                                <th width="10%" class="align-middle">Rut</th>
+                                <th width="3%" class="align-middle">Curso</th>
+                                <th width="30%" class="align-middle">Alumna</th>
+                                <th width="3%" class="align-middle" title="Orientadora">1</th>
+                                <th width="3%" class="align-middle" title="Psicóloga">2</th>
+                                <th width="3%" class="align-middle" title="Trabajadora Social">3</th>
+                                <th width="3%" class="align-middle" title="Convivencia Escolar">4</th>
+                                <th width="3%" class="align-middle" title="Equipo de Gestión">5</th>
+                                <th width="3%" class="align-middle" title="Terapeuta Ocupacional">6</th>
+                                <th width="3%" class="align-middle" title="Educadora Diferencial">7</th>
+                                <th width="3%" class="align-middle" title="Tipo Alumna/o">Tipo Alumno</th>
+                                <th width="10%" class="align-middle">Derivar</th>
+                                <th width="15%" class="align-middle">Estado</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr v-for="alumna in arrayAlumna" :key="alumna.id">
-                                <td>
+                                <td width="2%" class="align-middle">
+                                    <label class="form-checkbox">
+                                        <input type="checkbox" :value="alumna.id" v-model="selected">
+                                        <i class="form-icon"></i>
+                                    </label>
+                                </td>
+                                <td>                                    
                                     <button type="button" @click="abrirModal('alumna','actualizar',alumna)" class="btn btn-warning btn-sm" title="Editar">
                                         <i class="icon-pencil"></i>
                                     </button> &nbsp;
-                                    <div v-if="alumna.condicion">
+                                    <template v-if="alumna.condicion">
                                         <button type="button" @click="abrirModalRetiro('alumna','retirar',alumna)" class="btn btn-danger btn-sm" title="Retirar">
-                                        <i class="icon-trash"></i>
-                                    </button>
-                                    </div>
-                                    <div v-else>
+                                            <i class="icon-trash"></i>
+                                        </button>
+                                    </template>
+                                    <template v-else>
                                         <button type="button" @click="abrirModalRetiro('alumna','reincorporar',alumna)"  class="btn btn-info btn-sm" title="Reincorporar">
-                                        <i class="icon-check"></i>
-                                    </button>
-                                    </div>
-                                    
+                                            <i class="icon-check"></i>
+                                         </button>
+                                    </template>                                    
                                 </td>
                                 <td v-text="alumna.rut+'-'+alumna.digito"></td>
                                 <td v-text="alumna.curso"></td>
-                                <td v-text="alumna.apellidos +' '+ alumna.nombres"></td>
+                                <td class="text-capitalize" v-text="alumna.apellidos +' '+ alumna.nombres"></td>
                                 
                                 <td title="Orientadora">
                                     <div v-if="alumna.d_or==1" class="badge badge-success">
@@ -93,7 +127,7 @@
                                         <span><i class="fas fa-times"></i></span>
                                     </div>
                                 </td>
-                                <td title="Visitadora Social">
+                                <td title="Trabajadora Social">
                                     <div v-if="alumna.d_vsoc==1" class="badge badge-success">
                                         <span><i class="fas fa-check"></i></span>
                                     </div>
@@ -134,21 +168,24 @@
                                     </div>
                                 </td>
                                 <td align="center">
-                                    <div v-if="alumna.tipoalumno==0" class="badge badge-danger">
-                                        <span><i class="fas fa-times"></i></span>
+                                    <div v-if="alumna.tipoalumno==0" class="badge badge-warning">
+                                        <span title="Normal"><i class=" far fa-smile-wink"></i></span>
                                     </div>
-                                    <div v-else> class="badge badge-danger">
-                                        <span><i class="fas fa-check"></i></span>
+                                    <div v-if="alumna.tipoalumno==1" class="badge badge-primary">
+                                        <span title="Prioritario"><i class="far fa-smile-wink"></i></span>
+                                    </div>
+                                    <div v-if="alumna.tipoalumno==2" class="badge badge-success">
+                                        <span title="Preferente"><i class="far fa-smile-wink"></i></span>
                                     </div>
                                 </td>
                                 <td>
                                     <div v-if="alumna.condicion==1">
-                                        <button  type="button" @click="abrirModalderivacion('alumna','derivar',alumna)" class="btn btn-Info btn-sm" data-toggle="modal" data-target="#modalNuevo" title="Derivar">
+                                        <button  type="button" @click="abrirModalderivacion('alumna','derivar',alumna)" class="btn btn-Info btn-sm text-center" data-toggle="modal" data-target="#modalNuevo" title="Derivar">
                                         <i class="icon-paper-plane"></i>
                                         </button>
                                     </div>
                                     <div v-else>
-                                        <span class="badge badge-danger" v-text="alumna.fecharetiro" title="Fecha Retiro"></span>
+                                        <span class="badge badge-danger"  v-text="alumna.fecharetiro" title="Fecha Retiro"></span>
                                     </div>
                                     
                                 </td>
@@ -165,6 +202,14 @@
 
                         </tbody>
                     </table>
+                    <template v-if="selected.length>0">
+                        <div class="row offset-md-8 col-md-4 text-rigth">
+                            <button type="button" class="btn btn-sm btn-primary" @click="guardarPrioritarios()">Prioritario</button>&nbsp;
+                            <button type="button" class="btn btn-sm btn-success" @click="guardarPreferente()">Preferente</button>&nbsp;
+                            <button type="button" class="btn btn-sm btn-warning" @click="guardarNormal()">Normal</button>
+                        </div> 
+                    </template>
+   
                     <nav>
                         <ul class="pagination">
                             <li class="page-item" v-if="pagination.current_page > 1">
@@ -234,29 +279,10 @@
                                 <div class="col-md-4">
                                     <select class="form-control" v-model="curso">
                                         <option value="0">Seleccione Curso</option>
-                                        <option v-for="cursos in arrayCurso" :key="cursos.id" :value="cursos.curso" v-text="cursos.curso"></option>
+                                        <option v-for="cursos in arrayCurso" :key="cursos.id" :value="cursos.curso" v-text="cursos.curso"></option> 
                                     </select>
                                 </div>
                             </div>
-
-
-<!--                             <div class="form-group row">
-                                <label class="col-md-2 form-control-label" for="text-input">Curso</label>
-                                <div class="col-md-2">
-                                    <select v-model="curso" class="form-control">
-                                        <option>1° </option>
-                                        <option>2° </option>
-                                        <option>3° </option>
-                                        <option>4° </option>
-                                    </select>
- 
-                                </div>
-                                <label class="col-md-1 form-control-label" for="text-input">Letra</label>
-                                <div class="col-md-1">  
-                                    <input type="text" v-model="letra" class="form-control text-uppercase" placeholder="">
-                                </div>
-                            </div> -->
-
                             <div v-show="errorAlumna" class="form-group row div-error">
                                 <div class="text-center text-error">
                                     <div v-for="error in errorMsgAlumna" :key="error" v-text="error">
@@ -296,12 +322,13 @@
                             <h5  v-text="apellidos+' '+nombres"></h5>
                         </div>
                         <div v-if="tipoAccion==3">
-                            <div class="form-group col-md-12 text-center">
+                            <div class="form-group col-md-12 text-center">                                
                                 <label class=" form-control-label" for="text-input">Fecha Retiro</label>
                             </div> 
                             <div class="row">
                                 <div class="col-3"></div>
                                 <div class="col-5 text-center">
+                                    <!-- <datepicker class="form-control"  v-model="fecharetiro" ></datepicker> -->
                                     <input type="date" v-model="fecharetiro" class="form-control">
                                 </div>
                                 <div class="col-3"></div>
@@ -331,201 +358,185 @@
 
 
         <!-- Inicio del modal Derivación -->
-        <div class="modal fade" tabindex="-1" :class="{'mostrar' : modalDerivacion}" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
-            <div class="modal-dialog modal-success modal-lg" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title" v-text="tituloModal"></h4>
-                        <button type="button" class="close" @click="cerrarModalderivacion()" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-
-                    <div class="form-group col-12 text-center" >
-                        <div>
-                            <h3 v-text="opcionAlumna"></h3>
-                            <h4  v-text="apellidos+' '+nombres"></h4>
+        <div class="modal fade" tabindex="-1" :class="{'mostrar' : modalDerivacion}" role="dialog" aria-labelledby="myModalLabel"  style="overflow-y: scroll;display: none;overflow-x: scroll;" aria-hidden="true"><!-- style="" -->
+                <div class="modal-dialog modal-success modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" v-text="tituloModal"></h4>
+                            <button type="button" class="close" @click="cerrarModalderivacion()" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
                         </div>
-                        <label for=""></label>
-                        <!--  -->
-                        <form action="" method="POST" enctype="multipart/form-data" class="form-horizontal">
 
-                            <div class="row">
-                                <div class="form-group col-6">
-                                    <h6 class="form-control-label" for="text-input">Quien Deriva?</h6>
-                                    <input type="text" v-model="quienDeriva" class="form-control" placeholder="Nombre y Apellido">
-                                </div>
-                                <div class="form-group col-6">
-                                    <h6 class="form-control-label" for="text-input">Motivo Derivación</h6>
-                                    <input type="text" v-model="motivoDerivacion" class="form-control" placeholder="Motivo">
-                                </div> 
-                            </div>
-
-                            <div class="row">
-                                <div class="form-group col-12">
-                                    <h5 class="form-control-label" for="text-input">Diagnóstico</h5>
-                                    <textarea type="text" v-model="antecedentes" class="form-control" placeholder="Detalle..."></textarea>
-                                </div>
-                            </div>
-
+                        <div class="form-group col-12 text-center" >
                             <div>
-                                <div class="form-group col-md-12 text-center">
-                                    <h4 class=" form-control-label" for="text-input">¿A quien Deriva?</h4>
-                                </div> 
+                                <h3 v-text="opcionAlumna"></h3>
+                                <h4  v-text="apellidos+' '+nombres+' ('+curso3+')'"></h4>
                             </div>
-                            <div class="row">
-                                <div class="form-group col-6">
-                                    <div class="row">
-                                        <div class="form-check text-left col-md-6">
-                                            &nbsp;&nbsp;&nbsp;<input class="form-check-input " type="checkbox" v-model="orient">
-                                            <label class="form-check-label text-left" for="defaultCheck1">Orientadora</label>
-                                        </div>
-                                        <div class="form-check  col-md-6">
-                                            <select class="form-control" id="exampleFormControlSelect1">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </div>
-                                    </div>
+                            <label for=""></label>
+                            <!--  -->
+                            <form action="" method="POST" enctype="multipart/form-data" class="form-horizontal">
 
-                                    <div class="row">
-                                        <div class="form-check  text-left   col-md-6">
-                                            &nbsp;&nbsp;&nbsp;<input class="form-check-input" type="checkbox" v-model="psicol">
-                                            <label class="form-check-label" for="defaultCheck1">Psicóloga</label>
-                                        </div>
-                                        <div class="form-check  col-md-6">
-                                            <select class="form-control" id="exampleFormControlSelect1">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </div>
+                                <div class="row">
+                                    <div class="form-group col-6">
+                                        <h6 class="form-control-label" for="text-input">Quien Deriva?</h6>
+                                        <label type="text" v-text="quienDeriva" class="form-control"></label>
                                     </div>
-                                    <div class="row">
-                                        <div class="form-check  text-left   col-md-6">
-                                            &nbsp;&nbsp;&nbsp;<input class="form-check-input" type="checkbox" v-model="visit">
-                                           <label class="form-check-label" for="defaultCheck1">Trabajadora Social</label>
-                                        </div>                                        
-                                        <div class="form-check  col-md-6">
-                                            <select class="form-control" id="exampleFormControlSelect1">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="form-check  text-left   col-md-6">
-                                            &nbsp;&nbsp;&nbsp;<input class="form-check-input" type="checkbox" v-model="conviv">
-                                            <label class="form-check-label" for="defaultCheck1">Convivencia Escolar</label>                               
-                                        </div>                                        
-                                        <div class="form-check  col-md-6">
-                                            <select class="form-control" id="exampleFormControlSelect1">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </div>
-
-                                    </div>
-    
-                                </div>
-
-
-                                <div class="form-group col-6">
-                                    <div class="row">
-                                            <div class="form-check  text-left   col-md-6">
-                                                <input class="form-check-input" type="checkbox" v-model="gest">
-                                                <label class="form-check-label" for="defaultCheck1">Equipo de Gestión</label>
-                                            </div>
-                                        <div class="form-check  col-md-6">
-                                            <select class="form-control" id="exampleFormControlSelect1">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </div>
+                                    <div class="form-group col-6">
+                                        <h6 class="form-control-label" for="text-input">Motivo Derivación</h6>
+                                        <input type="text" v-model="motivoDerivacion" class="form-control" placeholder="Motivo">
                                     </div> 
+                                </div>
 
-                                    <div class="row">
-                                        <div class="form-check   text-left  col-md-6">
-                                            <input class="form-check-input" type="checkbox" v-model="terap">
-                                            <label class="form-check-label" for="defaultCheck1">Terapeuta Ocupacional</label>
-                                        </div>
-                                        <div class="form-check  col-md-6">
-                                            <select class="form-control" id="exampleFormControlSelect1">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="form-check  text-left   col-md-6">
-                                            <input class="form-check-input" type="checkbox" v-model="difer">
-                                            <label class="form-check-label" for="defaultCheck1">Educadora Diferencial</label> 
-                                        </div>
-                                        <div class="form-check  col-md-6">
-                                            <select class="form-control" id="exampleFormControlSelect1">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </div>
+                                <div class="row">
+                                    <div class="form-group col-12">
+                                        <h5 class="form-control-label" for="text-input">Diagnóstico</h5>
+                                        <textarea type="text" v-model="antecedentes" class="form-control" placeholder="Detalle..."></textarea>
                                     </div>
                                 </div>
-                              
-                            </div>
 
-                        </form>
-                        <!--  -->
+                                <div>
+                                    <div class="form-group col-md-12 text-center">
+                                        <h4 class=" form-control-label" for="text-input">¿A quien Deriva?</h4>
+                                    </div> 
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-6">
+                                        <div class="row">
+                                            <div class="form-check text-left col-md-6">
+                                                &nbsp;&nbsp;&nbsp;<input class="form-check-input " type="checkbox" v-model="orient">
+                                                <label class="form-check-label text-left" for="defaultCheck1">Orientadora</label>
+                                            </div>
+                                            <div class="form-check  col-md-6">
+                                                <select class="form-control" v-model="correoOr">
+                                                    <option v-for="orient in arrayOrientadoras" :key="orient.id" :value="orient.email" v-text="orient.nombreusuario"></option>
+                                                </select>
+                                            </div>
+                                        </div>
 
-                    </div>
-                    <div v-if="tipoAccion==3" v-show="errorAlumna" class="form-group row div-error">
-                        <div class="text-center text-error">
-                            <div v-for="error in errorMsgAlumna" :key="error" v-text="error">
+                                        <div class="row">
+                                            <div class="form-check  text-left   col-md-6">
+                                                &nbsp;&nbsp;&nbsp;<input class="form-check-input" type="checkbox" v-model="psicol">
+                                                <label class="form-check-label" for="defaultCheck1">Psicóloga</label>
+                                            </div>
+                                            <div class="form-check  col-md-6">
+                                                <select class="form-control" v-model="correoPs">
+                                                    <option  v-for="psicol in arrayPsicologas" :key="psicol.id" :value="psicol.email" v-text="psicol.nombreusuario"></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-check  text-left   col-md-6">
+                                                &nbsp;&nbsp;&nbsp;<input class="form-check-input" type="checkbox" v-model="visit">
+                                            <label class="form-check-label" for="defaultCheck1">Trab. Social</label>
+                                            </div>                                        
+                                            <div class="form-check  col-md-6">
+                                                <select class="form-control" v-model="correoTr">
+                                                    <option  v-for="trab in arrayTrabajadoras" :key="trab.id" :value="trab.email" v-text="trab.nombreusuario">1</option>
 
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-check  text-left   col-md-6">
+                                                &nbsp;&nbsp;&nbsp;<input class="form-check-input" type="checkbox" v-model="conviv">
+                                                <label class="form-check-label" for="defaultCheck1">Conv. Escolar</label>                               
+                                            </div>                                        
+                                            <div class="form-check  col-md-6">
+                                                <select class="form-control" v-model="correoCo">
+                                                    <option  v-for="conv in arrayConvivencias" :key="conv.id" :value="conv.email" v-text="conv.nombreusuario">1</option>
+
+                                                </select>
+                                            </div>
+
+                                        </div>
+        
+                                    </div>
+
+
+                                    <div class="form-group col-6">
+                                        <div class="row">
+                                                <div class="form-check  text-left   col-md-6">
+                                                    <input class="form-check-input" type="checkbox" v-model="gest">
+                                                    <label class="form-check-label" for="defaultCheck1">Equipo de Gestión</label>
+                                                </div>
+                                            <div class="form-check  col-md-6">
+                                                <select class="form-control" v-model="correoEq">
+                                                    <option  v-for="ges in arrayGestion" :key="ges.id" :value="ges.email" v-text="ges.nombreusuario">1</option>
+
+                                                </select>
+                                            </div>
+                                        </div> 
+
+                                        <div class="row">
+                                            <div class="form-check   text-left  col-md-6">
+                                                <input class="form-check-input" type="checkbox" v-model="terap">
+                                                <label class="form-check-label" for="defaultCheck1">Terap. Ocupacional</label>
+                                            </div>
+                                            <div class="form-check  col-md-6">
+                                                <select class="form-control" v-model="correoTe">
+                                                    <option  v-for="ter in arrayTerapeutas" :key="ter.id" :value="ter.email" v-text="ter.nombreusuario">1</option>
+
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-check  text-left   col-md-6">
+                                                <input class="form-check-input" type="checkbox" v-model="difer">
+                                                <label class="form-check-label" for="defaultCheck1">Educ. Diferencial</label> 
+                                            </div>
+                                            <div class="form-check  col-md-6">
+                                                <select class="form-control" v-model="correoEd">
+                                                    <option  v-for="ed in arrayEducadoras" :key="ed.id" :value="ed.email" v-text="ed.nombreusuario">1</option>
+
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                
+                                </div>
+
+                            </form>
+                            <!--  -->
+
+                        </div>
+                        <div v-if="tipoAccion==3" v-show="errorAlumna" class="form-group row div-error">
+                            <div class="text-center text-error">
+                                <div v-for="error in errorMsgAlumna" :key="error" v-text="error">
+
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="modal-footer modal-lg">
-                        <button type="button" class="btn btn-secondary" @click="cerrarModalderivacion()">Cerrar</button>
+                        <div class="modal-footer modal-lg">
+                            <button type="button" class="btn btn-secondary" @click="cerrarModalderivacion()">Cerrar</button>
 
-                        <button type="button" v-if="tipoAccion==5" @click="derivarAlumna()" class="btn btn-danger">Derivar</button>
-                        <button type="button" v-if="tipoAccion==4" @click="reincorporarAlumna()" class="btn btn-danger">Reincorporar</button>
+                            <button type="button" v-if="tipoAccion==5" @click="derivarAlumna()" class="btn btn-danger">Derivar</button>
+                            <button type="button" v-if="tipoAccion==4" @click="reincorporarAlumna()" class="btn btn-danger">Reincorporar</button>
+                        </div>
                     </div>
+                    <!-- /.modal-content -->
                 </div>
-                <!-- /.modal-content -->
-            </div>
+
             <!-- /.modal-dialog -->
         </div>
-        <!-- Fin del modal Eliminar -->
+        <!-- Fin del modal Derivación -->
+
+        
 
     </main>
 </template>
 
 <script>
-    import datables from 'datatables'
+
+    let user = document.head.querySelector('meta[name="user"]');
+   // console.log(JSON.parse(user.content)); 
     export default {
-        /* props : ['ruta'], */
+
+        
         data (){
             return {
                 antecedentes : '',
+                Activo : false,
                 alumna_id : 0,
                 orient : 0,
                 psicol : 0,
@@ -546,23 +557,43 @@
                 digito : '',
                 curso : '',
                 curso2 : '',
+                curso3 : '',
                 cursoyLetra : '',
                 letra : '',
                 apellidos : '',
                 nombres : '',
                 arrayAlumna : [],
+                arrayOrientadoras : [],
+                arrayPsicologas : [],
+                arrayTrabajadoras : [],
+                arrayConvivencias : [],
+                arrayGestion : [],
+                arrayEducadoras : [],
+                arrayTerapeutas : [],
                 modal : 0,
+                correoOr : '',
+                correoPs : '',
+                correoTr : '',
+                correoCo : '',
+                correoEq : '',
+                correoEd : '',
+                correoTe : '',
+                fechaDerivacionOrientadora : null,
                 modalRetiro : 0,
+                modalTipoAlumno : 0,
                 modalDerivacion : 0,
                 tituloModal : '',
                 tipoAccion : 0,
                 errorAlumna : 0,
                 errorMsgAlumna : [],
-                fecharetiro : 0,
+                fecharetiro : null,
                 opcionAlumna : '',
                 quienDeriva : '',
                 motivoDerivacion : '',
                 cursoAlumna: '',
+                alumnaPasar : '',
+                selected: [],
+		        selectAll: false,
                 pagination : {
                     'total' : 0,
                     'current_page' : 0,
@@ -576,6 +607,7 @@
                 buscar : ''
             }
         },
+
         computed: {
             isActived: function(){
                 return this.pagination.current_page;
@@ -614,6 +646,166 @@
                     timer: 2000
                 }) 
             },
+
+            enviarCorreoOrientadora(){
+                axios.post('/contactar',{
+                    'destino' : this.correoOr,
+                    'alumna' : this.nombres+' '+this.apellidos,
+                    'curso' : this.curso3,
+                }).then(function (response){
+                    }).catch(function(error){
+                        console.log(error);
+                    });
+            },
+
+            enviarCorreoPsicologa(){
+                axios.post('/contactar',{
+                    'destino' : this.correoPs,
+                    'alumna' : this.nombres+' '+this.apellidos,
+                    'curso' : this.curso3,
+                }).then(function (response){
+                    }).catch(function(error){
+                        console.log(error);
+                    });
+            },
+
+            enviarCorreoTrabajadora(){
+                axios.post('/contactar',{
+                    'destino' : this.correoTr,
+                    'alumna' : this.nombres+' '+this.apellidos,
+                    'curso' : this.curso3,
+                }).then(function (response){
+                    }).catch(function(error){
+                        console.log(error);
+                    });
+            },
+
+            enviarCorreoConvivencia(){
+                axios.post('/contactar',{
+                    'destino' : this.correoCo,
+                    'alumna' : this.nombres+' '+this.apellidos,
+                    'curso' : this.curso3,
+                }).then(function (response){
+                    }).catch(function(error){
+                        console.log(error);
+                    });
+            },
+
+            enviarCorreoGestion(){
+                axios.post('/contactar',{
+                    'destino' : this.correoEq,
+                    'alumna' : this.nombres+' '+this.apellidos,
+                    'curso' : this.curso3,
+                }).then(function (response){
+                    }).catch(function(error){
+                        console.log(error);
+                    });
+            },
+
+            enviarCorreoEducadora(){
+                axios.post('/contactar',{
+                    'destino' : this.correoEd,
+                    'alumna' : this.nombres+' '+this.apellidos,
+                    'curso' : this.curso3,
+                }).then(function (response){
+                    }).catch(function(error){
+                        console.log(error);
+                    });
+            },
+
+            enviarCorreoTerapeuta(){
+                axios.post('/contactar',{
+                    'destino' : this.correoTe,
+                    'alumna' : this.nombres+' '+this.apellidos,
+                    'curso' : this.curso3,
+                }).then(function (response){
+                    }).catch(function(error){
+                        console.log(error);
+                    });
+            },
+
+            select() {
+                this.selected = [];
+                if (!this.selectAll) {
+                    for (let alumna in this.arrayAlumna) {
+                        this.selected.push(this.arrayAlumna[alumna].id);
+                        }
+                    }
+            },
+            deSeleccionar(){
+                this.selected=[];
+            },
+            cambio(){
+                Swal.fire({
+                    position: 'center',
+                    type: 'success',
+                    title: 'Cambio Realizado',
+                    showConfirmButton: false,
+                    timer: 1000
+                })
+            },
+            
+            guardarPrioritarios(){
+                let me = this;
+                for (let index = 0; index < this.selected.length; index++) {
+                    const alumnaPasar = this.selected[index];
+                    axios.put( '/alumna/prioritario',{
+                       'id' : alumnaPasar,
+                       
+                    }).then(function (response){                      
+                        me.deSeleccionar();
+                        me.listarAlumna(1,'','rut');
+                    }).catch(function(error){
+                        console.log(error);
+                        console.log('derivo');
+
+                    });
+                    //console.log(alumnaPasar);
+                }
+                me.cambio();
+                
+            },
+            guardarPreferente(){
+                let me = this;
+                for (let index = 0; index < this.selected.length; index++) {
+                    const alumnaPasar = this.selected[index];
+                    axios.put( '/alumna/preferente',{
+                       'id' : alumnaPasar,
+                       
+                    }).then(function (response){
+                        //me.derivacionExitosa();
+                        me.deSeleccionar();
+                        me.listarAlumna(1,'','rut');
+                    }).catch(function(error){
+                        console.log(error);
+                        console.log('derivo');
+
+                    });
+                    //console.log(alumnaPasar);
+                }
+                me.cambio();
+            },
+            guardarNormal(){
+                let me = this;
+                for (let index = 0; index < this.selected.length; index++) {
+                    const alumnaPasar = this.selected[index];
+                    axios.put( '/alumna/normal',{
+                       'id' : alumnaPasar,
+                       
+                    }).then(function (response){
+                        //me.derivacionExitosa();
+                        me.deSeleccionar();
+                        me.listarAlumna(1,'','rut');
+                    }).catch(function(error){
+                        console.log(error);
+                        console.log('derivo');
+
+                    });
+                    //console.log(alumnaPasar);
+                }
+                me.cambio();
+            },
+
             derivarAlumna(){ 
                 let me= this;
                 if(this.orient){
@@ -624,9 +816,9 @@
                         'derivadopor' : this.quienDeriva,
                         'motivo' : this.motivoDerivacion,
                         'antecedentes' : this.antecedentes,
-
+                   /*      'fechaDerivacion' : new Date(), */
                     }).then(function (response){
-                        
+                        me.enviarCorreoOrientadora();
                         me.cerrarModalderivacion();
                     }).catch(function(error){
                         console.log(error);
@@ -658,7 +850,7 @@
                         'antecedentes' : this.antecedentes,
 
                     }).then(function (response){
-                        
+                        me.enviarCorreoPsicologa();
                         me.cerrarModalderivacion();
                     }).catch(function(error){
                         console.log(error);
@@ -690,7 +882,7 @@
                         'antecedentes' : this.antecedentes,
 
                     }).then(function (response){
-                        
+                        me.enviarCorreoTrabajadora();
                         me.cerrarModalderivacion();
                     }).catch(function(error){
                         console.log(error);
@@ -721,7 +913,7 @@
                         'antecedentes' : this.antecedentes,
 
                     }).then(function (response){
-                        
+                        me.enviarCorreoConvivencia();
                         me.cerrarModalderivacion();
                     }).catch(function(error){
                         console.log(error);
@@ -752,7 +944,7 @@
                         'antecedentes' : this.antecedentes,
 
                     }).then(function (response){
-                        
+                        me.enviarCorreoGestion();
                         me.cerrarModalderivacion();
                     }).catch(function(error){
                         console.log(error);
@@ -783,7 +975,7 @@
                         'antecedentes' : this.antecedentes,
 
                     }).then(function (response){
-                        
+                        me.enviarCorreoTerapeuta();
                         me.cerrarModalderivacion();
                     }).catch(function(error){
                         console.log(error);
@@ -814,7 +1006,7 @@
                         'antecedentes' : this.antecedentes,
 
                     }).then(function (response){
-                        
+                        me.enviarCorreoEducadora();
                         me.cerrarModalderivacion();
                     }).catch(function(error){
                         console.log(error);
@@ -838,24 +1030,7 @@
                 }
                 
             },
-/*             mytable(){
-                
-                 $(function() {
-                 $('#TablaDatos').DataTable({
-                    dom: 'Blfrtip',
-                    language:{
-                         "emptyTable": "No hay información",
-                         "info": "Mostrando _START_ de _END_ de _TOTAL_ Datos",
-                         "search": "Buscar:",
-                         "lengthMenu": "Mostrar _MENU_ Datos por página",
-                         "paginate":{"next": "Siguiente","previous": "Anterior","first": "Primero","last": "Último"},
-                         },
-                    buttons: ['excel','pdf','print']  
-                    });
-               });   
-            }, */
-
-            
+          
             listarAlumna(page,buscar,criterio){
                 let me=this;
                 url ='/alumna?page=' + page + '&buscar='+buscar+'&criterio='+criterio;
@@ -863,7 +1038,6 @@
                      var respuesta = response.data;
                      me.arrayAlumna = respuesta.alumnas.data;
                      me.pagination = respuesta.pagination;
-                     /* me.mytable() */
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -984,6 +1158,13 @@
                     }
                 }
             },
+
+            abrirModalCambio(){
+
+                this.modalTipoAlumno = 1;
+
+            },
+
             abrirModalderivacion(modelo, accion, data=[]){
                 switch(modelo){
                     case "alumna":
@@ -997,7 +1178,10 @@
                                 this.apellidos = data['apellidos'];
                                 this.nombres = data['nombres'];
                                 this.tituloModal = "Derivación de Alumna";
+                                this.curso3 = data['curso'];
                                 this.opcionAlumna = "";
+                                this.quienDeriva=JSON.parse(user.content).nombreusuario;
+ 
                                 break;
 
                             }
@@ -1014,6 +1198,7 @@
             },
             cerrarModalRetiro(){
                 this.modalRetiro = 0,
+                this.modalTipoAlumno = 0,
                 this.tituloModal = '',
                 this.rut = '';
                 this.digito = '';
@@ -1046,6 +1231,11 @@
                     console.log(error);
                 });
             },
+
+           /*  customFormatter(fecharetiro) {
+                
+                return moment(this.fecharetiro).format('DD-MM-YYYY');
+            }, */
             retirarAlumna(){
                 if (this.validarAlumnaRetirada()){
                     return;
@@ -1053,7 +1243,7 @@
                 let me  =this;
                 axios.put( '/alumna/retirar',{
                     'id' : this.alumna_id,
-                    'fecharetiro' : this.fecharetiro,
+                    'fecharetiro' : this.fecharetiro,  /*this.fecharetiro, */
                 }).then(function (response){
                     Swal.fire({
                         position: 'center',
@@ -1080,13 +1270,20 @@
                 this.nombres = '';
                 this.errorAlumna=0;
                 this.fecharetiro=0;
-                
+                this.correoOr = '';
+                this.correoPs = '';
+                this.correoTr = '';
+                this.correoCo = '';
+                this.correoEq = '';
+                this.correoEd = '';
+                this.correoTe = '';
+                this.quienDeriva=JSON.parse(user.content).nombreusuario;
                 this.errorMsgAlumna=[];
             },
 
              listarCurso(page){
                 let me=this;
-                url =  '/curso?page=' + page;
+                url =  '/curso/cursoactivo';
                  axios.get(url).then(function (response) {
                      var respuesta = response.data;
                      me.arrayCurso = respuesta.cursos.data;
@@ -1133,11 +1330,32 @@
                         }
                     }
                 }
-            }
+            },
+            listar(page){
+                    let me=this;
+                    url =  '/user/listar';
+                    axios.get(url).then(function (response) {
+                        var respuesta = response.data;
+                        me.arrayOrientadoras = respuesta.orientadoras.data;
+                        me.arrayPsicologas = respuesta.psicologas.data;
+                        me.arrayTrabajadoras = respuesta.trabajadoras.data;
+                        me.arrayConvivencias = respuesta.convivencias.data;
+                        me.arrayGestion = respuesta.gestions.data;
+                        me.arrayEducadoras = respuesta.educadoras.data;
+                        me.arrayTerapeutas = respuesta.terapeutas.data;
+                        me.pagination = respuesta.pagination;
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            },    
         },
+        
         mounted() {
             this.listarAlumna(1,this.buscar,this.criterio);
             this.listarCurso(1);
+            this.listar(1);
+            
         }
     }
 </script>

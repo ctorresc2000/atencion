@@ -34,7 +34,7 @@
                             <tbody>
                                 <tr v-for="reporte in arrayReporte" :key="reporte.id">
                                     <!-- <td v-text="reporte.id"></td> -->
-                                    <td v-text="reporte.curso+' '+reporte.letra"></td>
+                                    <td v-text="reporte.curso"></td>
                                     <td v-text="reporte.apellidos +' '+ reporte.nombres"></td>
                                     <td>
                                         <button type="button" @click="abrirModalDerivacion('alumna','actualizar',reporte)" class="btn btn-success btn-sm text-center"  title="Ver Detalle">

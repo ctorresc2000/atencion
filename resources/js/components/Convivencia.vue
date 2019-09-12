@@ -41,6 +41,7 @@
                                     <th width="35%">Alumna</th>
                                     <th width="15%">Derivado Por</th>
                                     <th width="39%">Motivo Derivación</th>
+                                    <th width="15%">Fecha Derivación</th>
                                     <th width="3%">Ant.</th>
                                     <!-- <th>Detalle</th>
                                     <th>Estado</th> -->
@@ -70,6 +71,7 @@
                                     <td v-text="orientadora.apellidos +' '+ orientadora.nombres"></td>
                                     <td v-text="orientadora.derivadopor"></td>
                                     <td v-text="orientadora.motivo"></td>
+                                    <td v-text="orientadora.fechaderivacion"></td>
                                     <td>
                                         <button   type="button" @click="abrirModalDerivacion('alumna','actualizar',orientadora)" class="btn btn-Info btn-sm text-center"  title="Ver Detalle">
                                             <i align="center" class="fas fa-eye"></i>
@@ -130,7 +132,16 @@
                     </div>
                     <div class="form-group col-6">
                         <h3 class="form-control-label text-center">Curso</h3>
-                        <h4 class="form-control-label text-center" v-text="curso+' '+letra"></h4> 
+                        <h4 class="form-control-label text-center" v-text="curso"></h4> 
+                    </div>
+
+                    <div class="form-group col-12">
+                        <label for=""></label>
+                        <label for=""></label>
+                        <h3 class="form-control-label text-center">Motivo</h3>
+                        <h6 class="form-control-label text-justify" v-text="motivo"></h6> 
+                        <label for=""></label>
+                        <label for=""></label>
                     </div>
 
                     <div class="form-group col-12">
@@ -549,7 +560,7 @@
                                 this.nombres = data['nombres'];
                                 this.apellidos = data['apellidos'];
                                 this.curso = data['curso'];
-                                this.letra = data['letra'];
+                                this.motivo = data['motivo'];
                                 this.antecedentes = data['antecedentes'];
                                 this.listarDetalleOrientadora();
                                 break;

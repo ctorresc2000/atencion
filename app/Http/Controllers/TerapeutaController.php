@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Terapeuta;
+use Carbon\Carbon;
 
 class TerapeutaController extends Controller
 {
@@ -75,11 +76,14 @@ class TerapeutaController extends Controller
     {
         if(!$request->ajax()) return redirect('/');
 
+        $fecha= Carbon::now();
+        $fecha=$fecha->format('d-m-Y');
+
         $terapeutas = new Terapeuta();
         $terapeutas->idalumna=$request->idalumna;
         $terapeutas->derivadopor=$request->derivadopor;
         $terapeutas->Motivo=$request->motivo;
-        
+        $terapeutas->fechaderivacion=$fecha; /* $request->fechaDerivacionOrientadora; */
         $terapeutas->antecedentes=$request->antecedentes;
         $terapeutas->condicion='1';
         $terapeutas->save();

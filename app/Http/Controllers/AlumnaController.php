@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
 use App\Imports\AlumnasImport;
+use Carbon\Carbon;
 
 use App\Alumna;
 
@@ -18,7 +19,7 @@ use Symfony\Component\Console\Logger\ConsoleLogger;
 
 class AlumnaController extends Controller
 {
-    /**
+    /***
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -26,6 +27,7 @@ class AlumnaController extends Controller
     public function index(request $request)
     {
         if(!$request->ajax()) return redirect('/');
+        
 
         $buscar = $request->buscar;
         $criterio = $request->criterio;
@@ -109,6 +111,11 @@ class AlumnaController extends Controller
     {
         if(!$request->ajax()) return redirect('/');
 
+
+       /*  $fecha= Carbon::now($request->fecharetiro);
+        $fecha=$fecha->createFromFormat('d-m-Y',"America/Santiago");
+        $fecha->setTimezone('UTC'); */
+
         $alumna = Alumna::findOrFail($request->id);
         $alumna->fecharetiro=$request->fecharetiro;
         $alumna->condicion='0';
@@ -120,10 +127,37 @@ class AlumnaController extends Controller
         if(!$request->ajax()) return redirect('/');
 
         $alumna = Alumna::findOrFail($request->id);
-        //$alumna->fecharetiro=$request->fecharetiro;
         $alumna->condicion='1';
         $alumna->save();
     }
+
+    public function normal(Request $request)
+    {
+        if(!$request->ajax()) return redirect('/');
+
+        $alumna = Alumna::findOrFail($request->id);
+        $alumna->tipoalumno='0';
+        $alumna->save();
+    }
+
+    public function prioritario(Request $request)
+    {
+        if(!$request->ajax()) return redirect('/');
+
+        $alumna = Alumna::findOrFail($request->id);
+        $alumna->tipoalumno='1';
+        $alumna->save();
+    }
+
+    public function preferente(Request $request)
+    {
+        if(!$request->ajax()) return redirect('/');
+
+        $alumna = Alumna::findOrFail($request->id);
+        $alumna->tipoalumno='2';
+        $alumna->save();
+    }
+
 
     /**
      * Update the specified resource in storage.
@@ -214,7 +248,7 @@ class AlumnaController extends Controller
     public function importExcel(Request $request)
     {
         $file = $request->file('file');
-        /* var_dump($request); */
+        
         Excel::import(new AlumnasImport, $file);
          
         return back();

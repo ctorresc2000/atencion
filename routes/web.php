@@ -79,12 +79,17 @@ Route::group(['middleware'=>['auth']], function() {
 
         Route::post('alumna/import', 'AlumnaController@importExcel')->name('subir');
 
+        Route::put('/alumna/prioritario', 'AlumnaController@prioritario');
+        Route::put('/alumna/preferente', 'AlumnaController@preferente');
+        Route::put('/alumna/normal', 'AlumnaController@normal');
+
         Route::get('/orientadora', 'OrientadoraController@index');
         Route::post('/orientadora/registrar', 'OrientadoraController@store');
         Route::put('/orientadora/actualizar', 'OrientadoraController@update');
         Route::put('/orientadora/cerrar', 'OrientadoraController@cerrar');
         Route::put('/orientadora/reabrir', 'OrientadoraController@reabrir');
         Route::get('/orientadora/detalles', 'OrientadoraController@mostrarDetalle');
+        
         
         Route::post('/det_orientadora/registrar', 'Det_orientadoraController@store');
         Route::get('/det_orientadora', 'Det_orientadoraController@index');
@@ -160,12 +165,17 @@ Route::group(['middleware'=>['auth']], function() {
         Route::put('/user/activar', 'UserController@activar');
         Route::put('/user/desactivar', 'UserController@desactivar');
         Route::put('/user/CambiarPassword', 'UserController@asignarPassword');
-
+        Route::get('/user/listar', 'UserController@listar');
+        
         Route::get('/curso', 'CursoController@index');
         Route::post('/curso/registrar', 'CursoController@store');
         Route::put('/curso/actualizar', 'CursoController@update');
         Route::put('/curso/desactivar', 'CursoController@desactivar');
-        Route::put('/curso/activar', 'CursoController@activar');
+        Route::put('/curso/activar', 'CursoController@activar'); 
+        Route::get('/curso/cursoactivo', 'CursoController@cursoactivo');
+        Route::get('/curso/sacarProfe', 'CursoController@sacarProfe');
+
+        Route::post('/contactar', 'EmailController@contact')->name('contact');
     });
 
     Route::group(['middleware'=>['Educadora']], function() {

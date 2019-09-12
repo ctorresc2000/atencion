@@ -25,7 +25,7 @@
                                     <a class="nav-link" href="#"><i class="fas fa-chalkboard-teacher"></i> Psicóloga</a>
                                 </li>  --}}
                                 <li @click='menu=5' class="nav-item">
-                                    <a class="nav-link" href="#"><i class="fas fa-chalkboard-teacher"></i> Visitadora Social</a>
+                                    <a class="nav-link" href="#"><i class="fas fa-chalkboard-teacher"></i> Trabajadora Social</a>
                                 </li>
                                 {{--  <li @click='menu=6' class="nav-item">
                                     <a class="nav-link" href="#"><i class="fas fa-chalkboard-teacher"></i> Conviv. Escolar</a>
