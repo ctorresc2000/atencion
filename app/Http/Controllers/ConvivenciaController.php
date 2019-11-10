@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 use App\Convivencia;
 
 class ConvivenciaController extends Controller
@@ -75,11 +76,14 @@ class ConvivenciaController extends Controller
     {
         if(!$request->ajax()) return redirect('/');
 
+        $fecha= Carbon::now();
+        $fecha=$fecha->format('d-m-Y');
+
         $convivencias = new Convivencia();
         $convivencias->idalumna=$request->idalumna;
         $convivencias->derivadopor=$request->derivadopor;
         $convivencias->Motivo=$request->motivo;
-        
+        $convivencias->fechaderivacion=$fecha;
         $convivencias->antecedentes=$request->antecedentes;
         $convivencias->condicion='1';
         $convivencias->save();

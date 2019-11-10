@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 /* namespace App\Imports; */
 
 use Illuminate\Http\Request;
+
+use App\Http\Requests\AlumnaStoreRequest;
+use App\Http\Requests\AlumnaUpdateRequest;
+
 use Maatwebsite\Excel\Facades\Excel;
 
 use App\Imports\AlumnasImport;
@@ -32,11 +36,14 @@ class AlumnaController extends Controller
         $buscar = $request->buscar;
         $criterio = $request->criterio;
 
+        $agno= Carbon::now();
+        $agno=$agno->format('Y');
+
         if ($buscar==''){
-            $alumnas = Alumna::OrderBy('curso')->OrderBy('apellidos')->OrderBy('nombres')->paginate(20);
+            $alumnas = Alumna::where('anio',$agno)->OrderBy('curso')->OrderBy('apellidos')->OrderBy('nombres')->paginate(20);
         }
         else{
-            $alumnas = Alumna::where($criterio,'like','%'.$buscar.'%')->OrderBy('curso')->OrderBy('apellidos')->OrderBy('nombres')->paginate(20);
+            $alumnas = Alumna::where('anio',$agno)->where($criterio,'like','%'.$buscar.'%')->OrderBy('curso')->OrderBy('apellidos')->OrderBy('nombres')->paginate(20);
         }
    
         return [
@@ -72,12 +79,16 @@ class AlumnaController extends Controller
     {
         if(!$request->ajax()) return redirect('/');
 
+        //$agno= Carbon::now();
+        //$agno=$agno->format('Y');
+
         $alumna = new Alumna();
         $alumna->rut=$request->rut;
         $alumna->digito=$request->digito;
         $alumna->apellidos=$request->apellidos;
         $alumna->nombres=$request->nombres;
         $alumna->curso=$request->curso;
+        $alumna->anio=$request->anio;
         $alumna->d_or='0';
         $alumna->d_psic='0';
         $alumna ->d_vsoc='0';
@@ -87,6 +98,7 @@ class AlumnaController extends Controller
         $alumna->d_edif='0';
         $alumna->condicion='1';
         $alumna->atendido="NO";
+        
         $alumna->save();
     }
 
@@ -172,6 +184,7 @@ class AlumnaController extends Controller
         
         $alumna = Alumna::findOrFail($request->id);
         $alumna->rut=$request->rut;
+        $alumna->anio=$request->anio;
         $alumna->digito=$request->digito;
         $alumna->apellidos=$request->apellidos;
         $alumna->nombres=$request->nombres;

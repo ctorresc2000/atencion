@@ -242,6 +242,15 @@
                         <form action="" method="POST" enctype="multipart/form-data" class="form-horizontal">
 
                             <div class="form-group row">
+                                <label class="col-md-2 form-control-label" for="text-input">Año Académico</label>
+                                <div class="col-md-4">
+                                    <input type="text" v-model="anio" class="form-control" placeholder="Ej. 2019">
+                                    <!-- <span class="help-block">(*) Ingrese el nombre de la categoría</span> -->
+                                </div>
+                            </div>
+
+
+                            <div class="form-group row">
                                 <label class="col-md-2 form-control-label" for="text-input">Rut Alumna</label>
 
                                 <div class="col-md-2">
@@ -275,7 +284,7 @@
 
 
                             <div class="form-group row">
-                                <label class="col-md-3">Curso</label>
+                                <label class="col-md-2 form-control-label">Curso</label>
                                 <div class="col-md-4">
                                     <select class="form-control" v-model="curso">
                                         <option value="0">Seleccione Curso</option>
@@ -562,6 +571,7 @@
                 letra : '',
                 apellidos : '',
                 nombres : '',
+                anio : '',
                 arrayAlumna : [],
                 arrayOrientadoras : [],
                 arrayPsicologas : [],
@@ -1062,9 +1072,10 @@
                     'rut' : this.rut,
                     'digito' : this.digito,
                     'curso' : this.curso,
-                    'letra' : this.letra,
+                    //'letra' : this.letra,
                     'apellidos' : this.apellidos,
                     'nombres' : this.nombres,
+                    'anio' : this.anio,
                 }).then(function (response){
                     me.cerrarModal();
                     me.listarAlumna(1,'','rut');
@@ -1094,7 +1105,7 @@
             validarAlumna(){
                 this.errorAlumna=0;
                 this.errorMsgAlumna=[];
-
+                if (!this.anio) this.errorMsgAlumna.push("Año no puede estar en Blanco");
                 if (!this.nombres) this.errorMsgAlumna.push("Nombres no pueden estar en Blanco");
                 if (!this.apellidos) this.errorMsgAlumna.push("Apellidos no pueden estar en Blanco");
                 if (!this.rut) this.errorMsgAlumna.push("Rut no puede estar en Blanco");
@@ -1305,9 +1316,10 @@
                                 this.rut = '';
                                 this.digito = '';
                                 this.curso = '';
-                                this.letra = '';
+                               // this.letra = '';
                                 this.apellidos = '';
                                 this.nombres = '';
+                                this.anio='';
                                 this.tituloModal = "Agregar Nueva Alumna";
                                 break;
 
@@ -1325,6 +1337,7 @@
                                 this.apellidos = data['apellidos'];
                                 this.curso = data['curso'];
                                 this.letra = data['letra'];
+                                this.anio = data['anio'];
                                 break;
                            }
                         }

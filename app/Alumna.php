@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Alumna extends Model
 {
     protected $table = 'alumnas';
-    protected $fillable=['rut','digito','curso','letra','apellidos','nombres','d_or','d_psic','d_vsoc','d_cesc','d_egest','d_ter','d_edif'];
+    protected $fillable=['anio','rut','digito','curso','letra','apellidos','nombres','d_or','d_psic','d_vsoc','d_cesc','d_egest','d_ter','d_edif'];
 
     public function orientadoras()
     {

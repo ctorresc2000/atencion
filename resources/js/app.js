@@ -41,6 +41,7 @@ Vue.component('user', require('./components/Users.vue').default);
 Vue.component('escritorio', require('./components/Escritorio.vue').default);
 Vue.component('importar', require('./components/Importar.vue').default);
 Vue.component('curso', require('./components/Cursos.vue').default);
+Vue.component('ficha', require('./components/Ficha.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

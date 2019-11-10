@@ -4,124 +4,122 @@
     @if(Auth::check())
         @if (Auth::user()->idrol == 1)
             <template v-if="menu==0">
-                <escritorio {{--  :ruta="ruta"  --}}></escritorio>
+                <escritorio></escritorio>
             </template>
 
             <template v-if="menu==1">
-                <alumna {{--  :ruta="ruta"  --}}></alumna>
+                <alumna></alumna>
             </template>     
 
             <template v-if="menu==12">
-                <reportes {{--  :ruta="ruta"  --}}></reportes>
+                <reportes></reportes>
             </template> 
 
         @elseif (Auth::user()->idrol == 2)
             <template v-if="menu==0">
-                <escritorio {{--  :ruta="ruta"  --}}></escritorio>
+                <escritorio></escritorio>
             </template>
 
             <template v-if="menu==1">
-                <alumna {{--  :ruta="ruta"  --}}></alumna>
+                <alumna></alumna>
             </template>
 
             <template v-if="menu==3">
-                <orientadora {{--  :ruta="ruta"  --}}></orientadora>
+                <orientadora></orientadora>
             </template>
 
             <template v-if="menu==12">
-                <reportes {{--  :ruta="ruta"  --}}></reportes>
+                <reportes></reportes>
             </template>   
 
         @elseif (Auth::user()->idrol == 3)
             <template v-if="menu==0">
-                <escritorio {{--  :ruta="ruta"  --}}></escritorio>
+                <escritorio></escritorio>
             </template>
             <template v-if="menu==1">
-                <alumna {{--  :ruta="ruta"  --}}></alumna>
+                <alumna></alumna>
             </template>
             <template v-if="menu==4">
-                <psicologa {{--  :ruta="ruta"  --}}></psicologa>
+                <psicologa></psicologa>
             </template>   
             <template v-if="menu==12">
-                <reportes {{--  :ruta="ruta"  --}}></reportes>
+                <reportes></reportes>
             </template>                  
         @elseif (Auth::user()->idrol == 4)
             <template v-if="menu==0">
-                <escritorio {{--  :ruta="ruta"  --}}></escritorio>
+                <escritorio></escritorio>
             </template>
             <template v-if="menu==1">
-                <alumna {{--  :ruta="ruta"  --}}></alumna>
+                <alumna></alumna>
             </template>
             <template v-if="menu==5">
-                <vsocial {{--  :ruta="ruta"  --}}></vsocial>
+                <vsocial></vsocial>
             </template> 
             <template v-if="menu==12">
-                <reportes {{--  :ruta="ruta"  --}}></reportes>
+                <reportes></reportes>
             </template>         
         @elseif (Auth::user()->idrol == 5)
             <template v-if="menu==0">
-                <escritorio {{--  :ruta="ruta"  --}}></escritorio>
+                <escritorio></escritorio>
             </template>
             <template v-if="menu==1">
-                <alumna {{--  :ruta="ruta"  --}}></alumna>
+                <alumna></alumna>
             </template>
             <template v-if="menu==6">
-                <convivencia {{--  :ruta="ruta"  --}}></convivencia>
+                <convivencia></convivencia>
             </template> 
             <template v-if="menu==12">
-                <reportes {{--  :ruta="ruta"  --}}></reportes>
+                <reportes></reportes>
             </template>             
         @elseif (Auth::user()->idrol == 6)
             <template v-if="menu==0">
-                <escritorio {{--  :ruta="ruta"  --}}></escritorio>
+                <escritorio></escritorio>
             </template>
             <template v-if="menu==1">
-                <alumna {{--  :ruta="ruta"  --}}></alumna>
+                <alumna></alumna>
             </template>
             <template v-if="menu==7">
-                 <gestion {{--  :ruta="ruta"  --}}></gestion>
+                 <gestion></gestion>
             </template> 
             <template v-if="menu==12">
-                <reportes {{--  :ruta="ruta"  --}}></reportes>
+                <reportes></reportes>
             </template>             
         @elseif (Auth::user()->idrol == 7)
             <template v-if="menu==0">
-                <escritorio {{--  :ruta="ruta"  --}}></escritorio>
+                <escritorio></escritorio>
             </template>
             <template v-if="menu==1">
-                <alumna {{--  :ruta="ruta"  --}}></alumna>
+                <alumna></alumna>
             </template>
             <template v-if="menu==8">
-                <terapeuta {{--  :ruta="ruta"  --}}></terapeuta>
+                <terapeuta></terapeuta>
             </template> 
             <template v-if="menu==12">
-                <reportes {{--  :ruta="ruta"  --}}></reportes>
+                <reportes></reportes>
             </template>             
         @elseif (Auth::user()->idrol == 8)
             <template v-if="menu==0">
-                <escritorio {{--  :ruta="ruta"  --}}></escritorio>
+                <escritorio></escritorio>
             </template>
             <template v-if="menu==1">
-                <alumna {{--  :ruta="ruta"  --}}></alumna>
+                <alumna></alumna>
             </template>
             <template v-if="menu==9">
-                <educadora {{--  :ruta="ruta"  --}}></educadora>
+                <educadora></educadora>
             </template>  
             <template v-if="menu==12">
-                <reportes {{--  :ruta="ruta"  --}}></reportes>
+                <reportes></reportes>
             </template>             
         @elseif (Auth::user()->idrol == 9)
             <template v-if="menu==0">
-                <escritorio {{--  :ruta="ruta"  --}}></escritorio>
+                <escritorio></escritorio>
             </template>
 
             <template v-if="menu==1">
-                <alumna {{--  :ruta="ruta"  --}}></alumna>
+                <alumna></alumna>
             </template>    
 
             <template v-if="menu==2">
-               
-                
                 <main class="main">
                     
                     <ol class="breadcrumb">
@@ -151,48 +149,51 @@
             </template>    
 
             <template v-if="menu==3">
-                <orientadora {{--  :ruta="ruta"  --}}></orientadora>
+                <orientadora></orientadora>
             </template>    
 
             <template v-if="menu==4">
-                <psicologa {{--  :ruta="ruta"  --}}></psicologa>
+                <psicologa></psicologa>
             </template>    
 
             <template v-if="menu==5">
-                <vsocial {{--  :ruta="ruta"  --}}></vsocial>
+                <vsocial></vsocial>
             </template>    
 
             <template v-if="menu==6">
-                <convivencia {{--  :ruta="ruta"  --}}></convivencia>
+                <convivencia></convivencia>
             </template>    
 
             <template v-if="menu==7">
-                <gestion {{--  :ruta="ruta"  --}}></gestion>
+                <gestion></gestion>
             </template>    
 
             <template v-if="menu==8">
-                <terapeuta {{--  :ruta="ruta"  --}}></terapeuta>
+                <terapeuta></terapeuta>
             </template>    
 
             <template v-if="menu==9">
-                <educadora {{--  :ruta="ruta"  --}}></educadora>
+                <educadora></educadora>
             </template>    
 
             <template v-if="menu==10">
-                <user {{--  :ruta="ruta"  --}}></user>
+                <user></user>
             </template>    
 
             <template v-if="menu==11">
-                <rol {{--  :ruta="ruta"  --}}></rol>
+                <rol></rol>
             </template>    
     
             <template v-if="menu==13">
-                <reportedirectora {{--  :ruta="ruta"  --}}></reportedirectora>
+                <reportedirectora></reportedirectora>
             </template>  
     
             <template v-if="menu==14">
                 <curso></curso>
-            </template>             
+            </template>     
+            <template v-if="menu==15">
+                <ficha></ficha>
+            </template>         
         @else
         @endif
     @endif

@@ -19,16 +19,15 @@
                     <div class="card-body">
                         <div class="form-group row">
                             <div class="col-md-8">
-                                <!-- <div class="input-group">
+                                <div class="input-group">
                                     <select class="form-control col-md-3" v-model="criterio">
-                                        <option value="rut">Rut</option>
                                         <option value="apellidos">Apellido</option>
                                         <option value="nombres">Nombre</option>
                                     </select>
-                                    <input type="text" v-model="buscar" @keyup.enter="listarAlumna(1,buscar,criterio)" class="form-control" placeholder="Texto a buscar (Rut sin digito)">
-                                    <button type="submit" @click="listarAlumna(1,buscar,criterio)" class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>&nbsp;&nbsp;
+                                    <input type="text" v-model="buscar" @keyup.enter="listarOrientadora(1,buscar,criterio)" class="form-control" placeholder="Texto a buscar (Rut sin digito)">
+                                    <button type="submit" @click="listarOrientadora(1,buscar,criterio)" class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>&nbsp;&nbsp;
                                     <button type="submit" @click="limpiarBusqueda()" class="btn btn-success"><i class="fas fa-broom"></i> Limpiar Búsqueda</button>
-                                </div> -->
+                                </div>
                             </div>
                         </div>
 
@@ -266,7 +265,7 @@
                     'to' : 0,
                 },
                 offset : 5,
-                criterio : 'rut',
+                criterio : 'apellidos',
                 buscar : ''
             }
         },
@@ -346,9 +345,9 @@
                 
                 },
 
-            listarOrientadora(page){
+            listarOrientadora(page,buscar,criterio){
                 let me=this;
-                url =  '/visitadora?page=' + page; // + '&buscar='+buscar+'&criterio='+criterio;
+                url =  '/visitadora?page=' + page + '&buscar='+buscar+'&criterio='+criterio;
                  axios.get(url).then(function (response) {
                      var respuesta = response.data;
                      me.arrayOrientadora = respuesta.visitadoras.data;
@@ -482,9 +481,9 @@
             },
             limpiarBusqueda(){
                 let me = this;
-                //this.buscar = '';
-                this.criterio = 'rut';
-                this.listarOrientadora(1);
+                this.buscar = '';
+                this.criterio = 'apellidos';
+                this.listarOrientadora(1,this.buscar,this.criterio);
             },
             cerrarModalRetiro(){
                 this.modalRetiro = 0,
@@ -571,7 +570,7 @@
             }
         },
         mounted() {
-            this.listarOrientadora(1);
+            this.listarOrientadora(1,this.buscar,this.criterio);
             //this.listarDetalleOrientadora();
         }
     }
